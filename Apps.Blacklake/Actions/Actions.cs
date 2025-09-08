@@ -12,7 +12,7 @@ namespace Apps.Blacklake.Actions;
 [ActionList("Content")]
 public class Actions(InvocationContext invocationContext, IFileManagementClient fileManagementClient) : BlacklakeInvocable(invocationContext)
 {
-    [Action("Apply lake", Description = "Takes a file and leverages the file with the data in Blacklake to prepare it for further translation")]
+    [Action("Apply lake", Description = "Takes a file and leverages the file with the data in a lake to prepare it for further translation")]
     public async Task<LeverageOutput> Leverage([ActionParameter] LakeInput lake, [ActionParameter] LeverageInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
