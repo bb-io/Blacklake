@@ -6,16 +6,12 @@
         <Nullable>enable</Nullable>
         <Product>Blacklake [Alpha]</Product>
         <Description>The new language data architecture</Description>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <AssemblyName>Apps.Blacklake.Alpha</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="image\logo.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Include="image\logo.png">
+      <EmbeddedResource Include="image\icon.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
