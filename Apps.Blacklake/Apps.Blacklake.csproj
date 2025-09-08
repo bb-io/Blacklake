@@ -5,20 +5,24 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Product>Blacklake [Alpha]</Product>
-        <Description>This is Blacklake.</Description>
-        <Version>1.0.3</Version>
+        <Description>The new language data architecture</Description>
+        <Version>1.0.4</Version>
         <AssemblyName>Apps.Blacklake.Alpha</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Blackbird.Applications.Sdk.Common" Version="2.13.0" />
-        <PackageReference Include="Blackbird.Applications.Sdk.Utils" Version="1.0.25" />
+      <None Remove="image\logo.png" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="image\logo.png">
+      <EmbeddedResource Include="image\logo.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blackbird.Applications.Sdk.Common" Version="2.13.0" />
+        <PackageReference Include="Blackbird.Applications.Sdk.Utils" Version="1.0.25" />
     </ItemGroup>
 
 </Project>
