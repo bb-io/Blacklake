@@ -1,0 +1,7 @@
+{
+  "ConnectionDefinition": {
+    "blacklake_url": "",
+    "blacklake_key": ""
+  },
+  "TestFolder": "TestFiles"
+}
