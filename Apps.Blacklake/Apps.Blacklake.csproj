@@ -7,7 +7,7 @@
         <Product>Blacklake [Alpha]</Product>
         <Description>The new language data architecture</Description>
         <Version>1.0.7</Version>
-        <AssemblyName>Apps.Blacklake.Alpha</AssemblyName>
+        <AssemblyName>Apps.Blacklake</AssemblyName>
     </PropertyGroup>
 
 	<ItemGroup>
