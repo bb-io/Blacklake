@@ -12,9 +12,9 @@ public class LeverageInput
     [Display("File")]
     public FileReference File { get; set; }
 
-    [Display("Target content unique ID")]
-    public string? TargetContentId { get; set; }
+    [Display("Source content ID")]
+    public string? SourceContentId { get; set; }
 
     [Display("Target variant")]
-    public string? TargetVariant { get; set; }
+    public string TargetVariant { get; set; }
 }

@@ -21,8 +21,8 @@ public class Actions(InvocationContext invocationContext, IFileManagementClient 
         var request = new RestRequest($"/lakes/{lake.LakeId}/leverage", Method.Post);
         request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);
 
-        request.AddParameter("targetExternalContentId", input.TargetContentId);
-        request.AddParameter("targetVariant", input.TargetVariant);
+        request.AddParameter("sourceExternalContentId", input.SourceContentId);
+        request.AddParameter("variant", input.TargetVariant);
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
