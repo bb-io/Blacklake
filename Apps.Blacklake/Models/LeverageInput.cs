@@ -1,10 +1,7 @@
-﻿using Blackbird.Applications.Sdk.Common;
+﻿using Apps.Blacklake.DataHandlers;
+using Blackbird.Applications.Sdk.Common;
+using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Files;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Apps.Blacklake.Models;
 public class LeverageInput
@@ -16,5 +13,6 @@ public class LeverageInput
     public string? SourceContentId { get; set; }
 
     [Display("Target variant")]
+    [DataSource(typeof(VariantDataHandler))]
     public string TargetVariant { get; set; }
 }
