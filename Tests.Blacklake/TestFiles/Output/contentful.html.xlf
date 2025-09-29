@@ -1,4 +1,4 @@
-<xliff srcLang="en" trgLang="nl" version="2.2" xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0" xmlns="urn:oasis:names:tc:xliff:document:2.2">
+<xliff srcLang="en" trgLang="nl" version="2.2" xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0" xmlns:fs="urn:oasis:names:tc:xliff:fs:2.0" xmlns="urn:oasis:names:tc:xliff:document:2.2">
   <file id="f1">
     <skeleton>&lt;html lang="en"&gt;
 &lt;head&gt;
@@ -142,7 +142,7 @@
         <mda:meta type="source-ucid">5746dLKTkEZjOQX21HX2KI</mda:meta>
       </mda:metaGroup>
     </mda:metadata>
-    <unit id="u1" name="/html[1]/body[1]/div[1]/h1[1]">
+    <unit id="u1" name="/html[1]/body[1]/div[1]/h1[1]" fs:fs="h1">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">5746dLKTkEZjOQX21HX2KI-title</mda:meta>
@@ -153,7 +153,7 @@
         <target>De Loirevallei</target>
       </segment>
     </unit>
-    <unit id="u2" name="/html[1]/body[1]/div[2]/h1[1]">
+    <unit id="u2" name="/html[1]/body[1]/div[2]/h1[1]" fs:fs="h1">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">6eZfQFZIjT5p5uHqYqMGQZ-title</mda:meta>
@@ -170,25 +170,25 @@
           <mda:meta type="key">6eZfQFZIjT5p5uHqYqMGQZ-text</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
-      <unit id="u3" name="/html[1]/body[1]/div[2]/div[1]/p[1]">
+      <unit id="u3" name="/html[1]/body[1]/div[2]/div[1]/p[1]" fs:fs="p">
         <segment>
           <source>Embark on an unforgettable journey through France's most enchanting countryside. Wander through majestic ch�teaux, savor the finest Loire wines, and lose yourself in picturesque villages. Whether you're a history buff, a wine enthusiast, or simply a lover of beautiful landscapes, the Loire Valley offers a travel experience unlike any other.</source>
         </segment>
       </unit>
-      <unit id="u4" name="/html[1]/body[1]/div[2]/div[1]/p[2]">
+      <unit id="u4" name="/html[1]/body[1]/div[2]/div[1]/p[2]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment state="final">
           <source>
-            <sc id="1" dataRef="d1" />Book your Loire Valley adventure today and step into a world where fairytales come to life! <ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Book your Loire Valley adventure today and step into a world where fairytales come to life! <ec dataRef="d2" fs:fs="strong" startRef="1" /></source>
           <target>
-            <sc id="1" dataRef="d1" />Boek vandaag nog jouw avontuur in de Loirevallei en betreed een wereld waar sprookjes tot leven komen! <ec dataRef="d2" startRef="1" /></target>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Boek vandaag nog jouw avontuur in de Loirevallei en betreed een wereld waar sprookjes tot leven komen! <ec dataRef="d2" fs:fs="strong" startRef="1" /></target>
         </segment>
       </unit>
     </group>
-    <unit id="u5" name="/html[1]/body[1]/div[3]/h1[1]">
+    <unit id="u5" name="/html[1]/body[1]/div[3]/h1[1]" fs:fs="h1">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">4avSNl953GJYUmIZ8cJg6S-title</mda:meta>
@@ -204,37 +204,37 @@
           <mda:meta type="key">4avSNl953GJYUmIZ8cJg6S-text</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
-      <unit id="u6" name="/html[1]/body[1]/div[3]/div[1]/p[1]">
+      <unit id="u6" name="/html[1]/body[1]/div[3]/div[1]/p[1]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment>
           <source>
-            <sc id="1" dataRef="d1" />Morning: Ch�teau de Chambord<ec dataRef="d2" startRef="1" /> Begin your day with a visit to the legendary Ch�teau de Chambord, a masterpiece of French Renaissance architecture. This sprawling castle, with its 400 rooms, iconic double-helix staircase, and forested grounds, was designed for King Francis I as a hunting lodge. Wander the grand halls and rooftop terraces, where you�ll find sweeping views of the Loire landscape. Arrive early to enjoy the castle�s peaceful grandeur before the crowds arrive.</source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Morning: Ch�teau de Chambord<ec dataRef="d2" fs:fs="strong" startRef="1" /> Begin your day with a visit to the legendary Ch�teau de Chambord, a masterpiece of French Renaissance architecture. This sprawling castle, with its 400 rooms, iconic double-helix staircase, and forested grounds, was designed for King Francis I as a hunting lodge. Wander the grand halls and rooftop terraces, where you�ll find sweeping views of the Loire landscape. Arrive early to enjoy the castle�s peaceful grandeur before the crowds arrive.</source>
         </segment>
       </unit>
-      <unit id="u7" name="/html[1]/body[1]/div[3]/div[1]/p[2]">
+      <unit id="u7" name="/html[1]/body[1]/div[3]/div[1]/p[2]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment>
           <source>
-            <sc id="1" dataRef="d1" />Midday: Lunch in Blois<ec dataRef="d2" startRef="1" /> Just a short drive away, the town of Blois offers a taste of quintessential Loire Valley charm. Explore its medieval center, winding alleyways, and the regal Ch�teau de Blois, known for its eclectic mix of architectural styles. For lunch, stop by a local bistro where you can savor Loire specialties like goat cheese tartine or rillettes. Pair it with a glass of crisp Sancerre wine, cultivated just a few miles away.</source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Midday: Lunch in Blois<ec dataRef="d2" fs:fs="strong" startRef="1" /> Just a short drive away, the town of Blois offers a taste of quintessential Loire Valley charm. Explore its medieval center, winding alleyways, and the regal Ch�teau de Blois, known for its eclectic mix of architectural styles. For lunch, stop by a local bistro where you can savor Loire specialties like goat cheese tartine or rillettes. Pair it with a glass of crisp Sancerre wine, cultivated just a few miles away.</source>
         </segment>
       </unit>
-      <unit id="u8" name="/html[1]/body[1]/div[3]/div[1]/p[3]">
+      <unit id="u8" name="/html[1]/body[1]/div[3]/div[1]/p[3]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment>
           <source>
-            <sc id="1" dataRef="d1" />Afternoon: Amboise and the Legacy of Leonardo da Vinci<ec dataRef="d2" startRef="1" /> Head to the Ch�teau d�Amboise, perched dramatically over the Loire River, once home to kings and visionaries alike. Stroll through royal apartments, visit the Gothic chapel where Leonardo da Vinci is buried, and soak in panoramic views of the river and town below. Just up the hill, the Clos Luc� mansion was Da Vinci�s residence for his final years. Inside, you�ll find intricate models of his inventions, bringing the genius of the Renaissance to life.</source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Afternoon: Amboise and the Legacy of Leonardo da Vinci<ec dataRef="d2" fs:fs="strong" startRef="1" /> Head to the Ch�teau d�Amboise, perched dramatically over the Loire River, once home to kings and visionaries alike. Stroll through royal apartments, visit the Gothic chapel where Leonardo da Vinci is buried, and soak in panoramic views of the river and town below. Just up the hill, the Clos Luc� mansion was Da Vinci�s residence for his final years. Inside, you�ll find intricate models of his inventions, bringing the genius of the Renaissance to life.</source>
         </segment>
       </unit>
-      <unit id="u9" name="/html[1]/body[1]/div[3]/div[1]/p[4]">
+      <unit id="u9" name="/html[1]/body[1]/div[3]/div[1]/p[4]" fs:fs="p">
         <segment state="final">
           <source>You can read more about the Loire valley in this book:</source>
           <target>Je kunt meer lezen over de Loirevallei in dit boek:</target>
@@ -247,37 +247,37 @@
           <mda:meta type="key">3MvZ2M38zOBdztgQJAzw0B-description</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
-      <unit id="u10" name="/html[1]/body[1]/div[4]/div[1]/p[1]">
+      <unit id="u10" name="/html[1]/body[1]/div[4]/div[1]/p[1]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;i&gt;</data>
           <data id="d2">&lt;/i&gt;</data>
         </originalData>
         <segment state="final">
-          <source>Embark on a journey through <sc id="1" dataRef="d1" />France Unveiled: A Journey Through Culture, Cuisine, and Countryside<ec dataRef="d2" startRef="1" />, a unique travel guide that weaves together the romantic charm of Paris, the sun-soaked allure of Provence, and the vineyard-laden trails of Bordeaux. This guide goes beyond the usual tourist stops to introduce you to hidden villages, local markets, and timeworn chateaux where history and modern French life blend seamlessly.</source>
-          <target>Ga op reis met <sc id="1" dataRef="d1" />Frankrijk Ontsluierd: Een Reis Door Cultuur, Keuken en Platteland<ec dataRef="d2" startRef="1" />, een uniek reisgids die de romantische charme van Parijs, de zonovergoten aantrekkingskracht van de Provence en de wijnrijke paden van Bordeaux samenbrengt. Deze gids gaat verder dan de gebruikelijke toeristenpleisters en introduceert je aan verborgen dorpjes, lokale markten en oude kastelen waar geschiedenis en het moderne Franse leven naadloos samensmelten.</target>
+          <source>Embark on a journey through <sc id="1" dataRef="d1" fs:fs="i" />France Unveiled: A Journey Through Culture, Cuisine, and Countryside<ec dataRef="d2" fs:fs="i" startRef="1" />, a unique travel guide that weaves together the romantic charm of Paris, the sun-soaked allure of Provence, and the vineyard-laden trails of Bordeaux. This guide goes beyond the usual tourist stops to introduce you to hidden villages, local markets, and timeworn chateaux where history and modern French life blend seamlessly.</source>
+          <target>Ga op reis met <sc id="1" dataRef="d1" fs:fs="i" />Frankrijk Ontsluierd: Een Reis Door Cultuur, Keuken en Platteland<ec dataRef="d2" fs:fs="i" startRef="1" />, een uniek reisgids die de romantische charme van Parijs, de zonovergoten aantrekkingskracht van de Provence en de wijnrijke paden van Bordeaux samenbrengt. Deze gids gaat verder dan de gebruikelijke toeristenpleisters en introduceert je aan verborgen dorpjes, lokale markten en oude kastelen waar geschiedenis en het moderne Franse leven naadloos samensmelten.</target>
         </segment>
       </unit>
-      <unit id="u11" name="/html[1]/body[1]/div[4]/div[1]/p[2]">
+      <unit id="u11" name="/html[1]/body[1]/div[4]/div[1]/p[2]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;i&gt;</data>
           <data id="d2">&lt;/i&gt;</data>
         </originalData>
         <segment>
-          <source>Whether sipping coffee in a quiet Marais caf�, wandering through medieval streets in Alsace, or savoring fresh seafood along the C�te d'Azur, <sc id="1" dataRef="d1" />France Unveiled<ec dataRef="d2" startRef="1" /> offers insights, local tips, and immersive experiences for travelers who want to explore like a local. Packed with detailed itineraries, insider recommendations, and stories that bring each region to life, this guide will help you uncover the heart of France�from its iconic sites to its best-kept secrets.</source>
+          <source>Whether sipping coffee in a quiet Marais caf�, wandering through medieval streets in Alsace, or savoring fresh seafood along the C�te d'Azur, <sc id="1" dataRef="d1" fs:fs="i" />France Unveiled<ec dataRef="d2" fs:fs="i" startRef="1" /> offers insights, local tips, and immersive experiences for travelers who want to explore like a local. Packed with detailed itineraries, insider recommendations, and stories that bring each region to life, this guide will help you uncover the heart of France�from its iconic sites to its best-kept secrets.</source>
         </segment>
       </unit>
-      <unit id="u12" name="/html[1]/body[1]/div[4]/div[1]/p[3]">
+      <unit id="u12" name="/html[1]/body[1]/div[4]/div[1]/p[3]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;i&gt;</data>
           <data id="d2">&lt;/i&gt;</data>
         </originalData>
         <segment>
           <source>
-            <sc id="1" dataRef="d1" /> Perfect for first-time visitors and seasoned Francophiles alike, this guide will make every trip unforgettable <ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="i" /> Perfect for first-time visitors and seasoned Francophiles alike, this guide will make every trip unforgettable <ec dataRef="d2" fs:fs="i" startRef="1" /></source>
         </segment>
       </unit>
     </group>
-    <unit id="u13" name="/html[1]/body[1]/div[4]/img[1]/@alt[1]">
+    <unit id="u13" name="/html[1]/body[1]/div[4]/img[1]/@alt[1]" fs:fs="img" fs:subFs="src,https://images.ctfassets.net/12ktqqmw656e/7jS4PhCf07nFGDbM2Xj5fT/513a21df5f6493964373bf152a6fd2bb/tower.jfif\alt,Eiffel tower">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">3MvZ2M38zOBdztgQJAzw0B-file</mda:meta>
@@ -288,7 +288,7 @@
         <target>Eiffeltoren</target>
       </segment>
     </unit>
-    <unit id="u14" name="/html[1]/body[1]/div[4]/h1[1]">
+    <unit id="u14" name="/html[1]/body[1]/div[4]/h1[1]" fs:fs="h1">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">3MvZ2M38zOBdztgQJAzw0B-title</mda:meta>
@@ -299,7 +299,7 @@
         <target>Frankrijk Ontsluierd: Een Reis Door Cultuur, Keuken en Platteland</target>
       </segment>
     </unit>
-    <unit id="u15" name="/html[1]/body[1]/div[5]/h1[1]">
+    <unit id="u15" name="/html[1]/body[1]/div[5]/h1[1]" fs:fs="h1">
       <mda:metadata>
         <mda:metaGroup category="blackbird">
           <mda:meta type="key">Tp9LF4pw5n3ydWs58YvOc-title</mda:meta>
@@ -316,75 +316,75 @@
           <mda:meta type="key">Tp9LF4pw5n3ydWs58YvOc-text</mda:meta>
         </mda:metaGroup>
       </mda:metadata>
-      <unit id="u16" name="/html[1]/body[1]/div[5]/div[1]/p[1]">
+      <unit id="u16" name="/html[1]/body[1]/div[5]/div[1]/p[1]" fs:fs="p">
         <segment>
           <source>The Loire Valley is known for its diverse wine offerings, from crisp whites to delicate reds. To experience the region�s viniculture, stop by a local winery in the Vouvray or Chinon area, where family-run vineyards offer tastings and tours. Here, you can sample Loire�s famous Chenin Blancs, earthy Cabernet Francs, and refreshing Ros�s, often accompanied by local cheeses and bread. It�s a truly immersive way to connect with the region�s rich agricultural traditions and taste the terroir of the Loire Valley.</source>
         </segment>
       </unit>
-      <unit id="u17" name="/html[1]/body[1]/div[5]/div[1]/h3[1]">
+      <unit id="u17" name="/html[1]/body[1]/div[5]/div[1]/h3[1]" fs:fs="h3">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment state="final">
           <source>
-            <sc id="1" dataRef="d1" />Local Tips for Exploring the Loire Valley<ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Local Tips for Exploring the Loire Valley<ec dataRef="d2" fs:fs="strong" startRef="1" /></source>
           <target>
-            <sc id="1" dataRef="d1" />Lokale Tips voor het Verkennen van de Loirevallei<ec dataRef="d2" startRef="1" /></target>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Lokale Tips voor het Verkennen van de Loirevallei<ec dataRef="d2" fs:fs="strong" startRef="1" /></target>
         </segment>
       </unit>
-      <unit id="u18" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[1]/p[1]">
+      <unit id="u18" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[1]/p[1]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment state="final">
           <source>
-            <sc id="1" dataRef="d1" />Best Time to Visit:<ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Best Time to Visit:<ec dataRef="d2" fs:fs="strong" startRef="1" /></source>
           <target>
-            <sc id="1" dataRef="d1" />Beste Tijd om te Bezoeken:<ec dataRef="d2" startRef="1" /></target>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Beste Tijd om te Bezoeken:<ec dataRef="d2" fs:fs="strong" startRef="1" /></target>
         </segment>
       </unit>
-      <unit id="u19" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[1]/p[2]">
+      <unit id="u19" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[1]/p[2]" fs:fs="p">
         <segment state="final">
           <source>Spring and autumn offer pleasant weather and fewer crowds, while summer brings the region to life with festivals and outdoor concerts.</source>
           <target>De lente en de herfst bieden aangenaam weer en minder drukte, terwijl de zomer de regio tot leven brengt met festivals en openluchtconcerten.</target>
         </segment>
       </unit>
-      <unit id="u20" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[2]/p[1]">
+      <unit id="u20" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[2]/p[1]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment state="final">
           <source>
-            <sc id="1" dataRef="d1" />Getting Around:<ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Getting Around:<ec dataRef="d2" fs:fs="strong" startRef="1" /></source>
           <target>
-            <sc id="1" dataRef="d1" />Vervoer:<ec dataRef="d2" startRef="1" /></target>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Vervoer:<ec dataRef="d2" fs:fs="strong" startRef="1" /></target>
         </segment>
       </unit>
-      <unit id="u21" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[2]/p[2]">
+      <unit id="u21" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[2]/p[2]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;a href="https://fr.wikipedia.org/wiki/La_Loire_%C3%A0_V%C3%A9lo"&gt;</data>
           <data id="d2">&lt;/a&gt;</data>
         </originalData>
         <segment>
-          <source>Renting a bike is a great way to explore the scenic <sc id="1" dataRef="d1" />Loire � V�lo<ec dataRef="d2" startRef="1" /> cycling routes, which connect many of the region�s major sights.</source>
+          <source>Renting a bike is a great way to explore the scenic <sc id="1" dataRef="d1" fs:fs="a" fs:subFs="href,https://fr.wikipedia.org/wiki/La_Loire_%C3%A0_V%C3%A9lo" />Loire � V�lo<ec dataRef="d2" fs:fs="a" startRef="1" /> cycling routes, which connect many of the region�s major sights.</source>
         </segment>
       </unit>
-      <unit id="u22" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[3]/p[1]">
+      <unit id="u22" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[3]/p[1]" fs:fs="p">
         <originalData>
           <data id="d1">&lt;strong&gt;</data>
           <data id="d2">&lt;/strong&gt;</data>
         </originalData>
         <segment state="final">
           <source>
-            <sc id="1" dataRef="d1" />Hidden Gem:<ec dataRef="d2" startRef="1" /></source>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Hidden Gem:<ec dataRef="d2" fs:fs="strong" startRef="1" /></source>
           <target>
-            <sc id="1" dataRef="d1" />Verborgen Parel:<ec dataRef="d2" startRef="1" /></target>
+            <sc id="1" dataRef="d1" fs:fs="strong" />Verborgen Parel:<ec dataRef="d2" fs:fs="strong" startRef="1" /></target>
         </segment>
       </unit>
-      <unit id="u23" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[3]/p[2]">
+      <unit id="u23" name="/html[1]/body[1]/div[5]/div[1]/ul[1]/li[3]/p[2]" fs:fs="p">
         <segment>
           <source>Don�t miss the lesser-known Ch�teau de Villandry, celebrated for its Renaissance gardens. Spend a serene afternoon wandering through its maze of perfectly manicured flowerbeds, orchards, and ornamental vegetable plots.</source>
         </segment>

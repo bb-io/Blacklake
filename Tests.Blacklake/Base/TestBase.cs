@@ -1,6 +1,11 @@
+using Apps.Blacklake.DataHandlers;
+using Apps.Blacklake.Dto;
+using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Authentication;
+using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Microsoft.Extensions.Configuration;
+using RestSharp;
 
 namespace Tests.Blacklake.Base;
 public class TestBase
@@ -25,8 +30,24 @@ public class TestBase
         InvocationContext = new InvocationContext
         {
             AuthenticationCredentialsProviders = Creds,
+            Bird = new BirdInfo { Name = "Test Bird" },
+            Flight = new FlightInfo { Url = "www.example.com" },
         };
 
         FileManager = new FileManager();
+    }
+
+    public async Task<string> GetLakeId()
+    {
+        var handler = new LakeDataHandler(InvocationContext);
+        var lakesResult = await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
+        return lakesResult.Last().Value;
+    }
+
+    public async Task<IEnumerable<DataSourceItem>> GetTextFieldIds()
+    {
+        var lakeId = await GetLakeId();
+        var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        return await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
     }
 }
