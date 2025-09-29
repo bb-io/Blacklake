@@ -7,7 +7,7 @@ using Blackbird.Applications.Sdk.Common.Invocation;
 using RestSharp;
 namespace Apps.Blacklake.Actions;
 
-[Display("Metadata")]
+[ActionList("Metadata")]
 public class MetadataActions(InvocationContext invocationContext) : BlacklakeInvocable(invocationContext)
 {
     [Action("Update text metadata", Description = "Update a metadata text value on a particular content variant")]
