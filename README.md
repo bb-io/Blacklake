@@ -31,8 +31,8 @@ Before you can connect you need to make sure that:
 
 #### Core features
 
-- **Apply lake** takes any Blackbird interoperable compatible file and converts it into a bilingual file that can be used for further translation/processing steps. See the [Blacklake key concepts](https://docs.blackbird.io/blacklake/key-concepts/) for more information on this Action.
-- **Add to lake** takes any Blackbird interoperable compatible file and stores it into Blacklake. There are two distinct scenarios in which this Action is used:
+- **Prepare Content** takes any Blackbird interoperable compatible file and converts it into a bilingual file that can be used for further translation/processing steps. See the [Blacklake key concepts](https://docs.blackbird.io/blacklake/key-concepts/) for more information on this Action.
+- **Store Content** takes any Blackbird interoperable compatible file and stores it into Blacklake. There are two distinct scenarios in which this Action is used:
   - Sending a translated file (first example below) will record the translation in Blacklake. It will store all the metadata and source units next to their translations. Applying the Lake after this action will repopulate the right units so that you significantly safe on translation cost.
   - Sending a monolingual file (second example) will commit the file without any translation metadata, but will make changes to the target of translations if they exist. This enables you to synchronize any edits made outside of the translation process into Blacklake and enable "in-context editing".
 
@@ -44,9 +44,9 @@ Before you can connect you need to make sure that:
 #### Translation
 ![1763034764355](image/README/1763034764355.png)
 
-The example above shows how Blacklake can be leveraged in any translation process. Before translation, "Apply Lake" is used to diff and pre-translate any content that already exists in the Lake. It also adds any relevant linguistic assets that subsequent steps can use.
+The example above shows how Blacklake can be leveraged in any translation process. Before translation, "Prepare Content" is used to diff and pre-translate any content that already exists in the Lake. It also adds any relevant linguistic assets that subsequent steps can use.
 
-After translation, and after the translation is uploaded to the source system, Blacklake uses the output of the upload action to commit the changes to the Lake using the "Add to Lake" action. This will make the changes and all the metadata that was generated during the translation process appear in Blacklake and available for future application.
+After translation, and after the translation is uploaded to the source system, Blacklake uses the output of the upload action to commit the changes to the Lake using the "Store Content" action. This will make the changes and all the metadata that was generated during the translation process appear in Blacklake and available for future application.
 
 It's important to use the output of the upload Action as this Action will further enhance the uploaded file with extra context of the source system. F.e. what is the new link of the uploaded content?
 
