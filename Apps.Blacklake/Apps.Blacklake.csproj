@@ -4,9 +4,9 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Product>Blacklake [Alpha]</Product>
+        <Product>Blacklake [Beta]</Product>
         <Description>The new language data architecture</Description>
-        <Version>1.0.12</Version>
+        <Version>1.0.13</Version>
         <AssemblyName>Apps.Blacklake</AssemblyName>
     </PropertyGroup>
 

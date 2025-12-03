@@ -16,7 +16,7 @@ namespace Apps.Blacklake.Actions;
 [ActionList("Content")]
 public class ContentActions(InvocationContext invocationContext, IFileManagementClient fileManagementClient) : BlacklakeInvocable(invocationContext)
 {
-    [Action("Apply lake", Description = "Takes a file and leverages the file with the data in a lake to prepare it for further translation")]
+    [Action("Prepare Content", Description = "Takes a file and leverages existing content in a lake to prepare it for further translation. Also applies relevant language assets.")]
     public async Task<LeverageOutput> Leverage([ActionParameter] LakeInput lake, [ActionParameter] LeverageInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
@@ -99,7 +99,7 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         }
     }
 
-    [Action("Add to lake", Description = "Commit a file to a lake. This can be any interoperable supported file type, including monolingual files.")]
+    [Action("Store Content", Description = "Store a file in a lake. This can be any interoperable supported file type, including monolingual files.")]
     public async Task Commit([ActionParameter] LakeInput lake, [ActionParameter] CommitInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
