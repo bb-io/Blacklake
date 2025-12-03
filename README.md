@@ -42,7 +42,7 @@ Before you can connect you need to make sure that:
 ## Examples
 
 #### Translation
-![1763034764355](image/README/1763034764355.png)
+![1764777794069](image/README/1764777794069.png)
 
 The example above shows how Blacklake can be leveraged in any translation process. Before translation, "Prepare Content" is used to diff and pre-translate any content that already exists in the Lake. It also adds any relevant linguistic assets that subsequent steps can use.
 
@@ -51,7 +51,7 @@ After translation, and after the translation is uploaded to the source system, B
 It's important to use the output of the upload Action as this Action will further enhance the uploaded file with extra context of the source system. F.e. what is the new link of the uploaded content?
 
 #### In context editing
-![1763034843361](image/README/1763034843361.png)
+![1764777830834](image/README/1764777830834.png)
 
 The example above shows how changes in the source system to **any content** can be synchronized back into Blacklake. Implementation of this Bird will depend on the structure of the CMS. In Contentful any change to any language will trigger all languages to be republished. In a system like Hubspot this is more language dependent and thus the shape of the Bird will be different.
 
