@@ -5,7 +5,9 @@ using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Dynamic;
+using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
+using Blackbird.Applications.Sdk.Utils.Extensions.Http;
 using RestSharp;
 namespace Apps.Blacklake.Actions;
 
@@ -44,7 +46,16 @@ public class MetadataActions(InvocationContext invocationContext) : BlacklakeInv
 
     private async Task UpdateMetadata(LakeInput lake, MetadataInput input, string metaFieldId, object value)
     {
-        var contentRequest = new RestRequest($"/lakes/{lake.LakeId}/content/external/{input.ExternalContentId}/variants/{input.VariantId}", Method.Get);
+        var variantsRequest = new RestRequest($"/lakes/{lake.LakeId}/variants", Method.Get);
+        var variantsResult = await Client.ExecuteWithErrorHandling<List<VariantDto>>(variantsRequest);
+
+        var variant = variantsResult.FirstOrDefault(x => x.AllCodes.Contains(input.VariantCode));
+        if (variant is null) 
+        {
+            throw new PluginMisconfigurationException($"Variant code {input.VariantCode} not found in this lake.");
+        }
+
+        var contentRequest = new RestRequest($"/lakes/{lake.LakeId}/content/external/{input.ExternalContentId}/variants/{variant.Id}", Method.Get);
         var contentResult = await Client.ExecuteWithErrorHandling<ContentDto>(contentRequest);
 
         if (contentResult == null)

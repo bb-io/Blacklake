@@ -50,4 +50,11 @@ public class TestBase
         var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
         return await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
     }
+
+    public async Task<IEnumerable<DataSourceItem>> GetNumberFieldIds()
+    {
+        var lakeId = await GetLakeId();
+        var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        return await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
+    }
 }

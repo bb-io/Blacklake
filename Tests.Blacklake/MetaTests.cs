@@ -9,21 +9,21 @@ namespace Tests.Blacklake;
 public class MetaTests : TestBase
 {
     [TestMethod]
-    public async Task Update_text()
+    public async Task Update_number()
     {
         var actions = new MetadataActions(InvocationContext);
-        var lakeId = await GetLakeId();
-        var fieldIds = await GetTextFieldIds();
-        var variantId = "d62fd6f6-7bde-4051-a5cf-068a2a2c02e6";
-        var externalContentId = "5746dLKTkEZjOQX21HX2KI";
+        var lakeId = "a3510bb0-e0b8-40ca-a040-218f73a6eb50";
+        var fieldId = "5caecfc7-abbc-4fcd-b502-691e4dc75cd6";
+        var variantCode = "nl";
+        var externalContentId = "17442755172497";
 
 
-        await actions.UpdateTextMetadata(
-            new LakeInput { LakeId = lakeId }, 
+        await actions.UpdateNumberMetadata(
+            new LakeInput { LakeId = lakeId },
+            fieldId,
             new MetadataInput { 
-                FieldId = fieldIds.FirstOrDefault().Value, 
-                VariantId = variantId, 
+                VariantCode = variantCode, 
                 ExternalContentId = externalContentId },
-            "New value from test");
+            3);
     }
 }
