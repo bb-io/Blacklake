@@ -5,9 +5,9 @@ using Blackbird.Applications.Sdk.Common.Dynamic;
 namespace Apps.Blacklake.Models;
 public class MetadataInput
 {
-    [Display("Variant ID")]
+    [Display("Variant code")]
     [DataSource(typeof(VariantDataHandler))]
-    public string VariantId { get; set; }
+    public string VariantCode { get; set; }
 
     [Display("External content ID")]
     public string ExternalContentId { get; set; }

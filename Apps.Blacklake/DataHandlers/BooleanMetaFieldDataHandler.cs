@@ -11,7 +11,7 @@ public class BooleanMetaFieldDataHandler(InvocationContext invocationContext, [A
 {
     public async Task<IEnumerable<DataSourceItem>> GetDataAsync(DataSourceContext context, CancellationToken cancellationToken)
     {
-        if (lakeInput is null) throw new PluginMisconfigurationException("Please select a lake first");
+        if (lakeInput?.LakeId is null) throw new PluginMisconfigurationException("Please select a lake first");
 
         var request = new RestRequest($"/lakes/{lakeInput.LakeId}/metadata", Method.Get);
         var result = await Client.ExecuteWithErrorHandling<IEnumerable<MetadataDto>>(request);

@@ -11,7 +11,7 @@ public class VariantDataHandler(InvocationContext invocationContext, [ActionPara
 {
     public async Task<IEnumerable<DataSourceItem>> GetDataAsync(DataSourceContext context, CancellationToken cancellationToken)
     {
-        if (lakeInput is null) throw new PluginMisconfigurationException("Please select a lake first");
+        if (lakeInput?.LakeId is null) throw new PluginMisconfigurationException("Please select a lake first");
 
         var request = new RestRequest($"/lakes/{lakeInput.LakeId}/variants", Method.Get);
         var result = await Client.ExecuteWithErrorHandling<IEnumerable<VariantDto>>(request);
