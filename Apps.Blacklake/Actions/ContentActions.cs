@@ -111,6 +111,10 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddParameter("workflow", InvocationContext.Bird?.Name);
         request.AddParameter("workflowReference", InvocationContext.Flight?.Url);
 
+        if (input.AlignmentVariant != null)
+        {
+            request.AddParameter("sourceVariant", input.AlignmentVariant);
+        }
 
         await Client.ExecuteWithErrorHandling(request);
     }
