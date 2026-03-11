@@ -1,11 +1,9 @@
 using Apps.Blacklake.DataHandlers;
-using Apps.Blacklake.Dto;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Microsoft.Extensions.Configuration;
-using RestSharp;
 
 namespace Tests.Blacklake.Base;
 public class TestBase
@@ -41,7 +39,7 @@ public class TestBase
     {
         var handler = new LakeDataHandler(InvocationContext);
         var lakesResult = await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
-        return lakesResult.Last().Value;
+        return lakesResult.First().Value;
     }
 
     public async Task<IEnumerable<DataSourceItem>> GetTextFieldIds()

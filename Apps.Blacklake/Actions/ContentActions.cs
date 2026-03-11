@@ -16,7 +16,7 @@ namespace Apps.Blacklake.Actions;
 [ActionList("Content")]
 public class ContentActions(InvocationContext invocationContext, IFileManagementClient fileManagementClient) : BlacklakeInvocable(invocationContext)
 {
-    [Action("Prepare Content", Description = "Takes a file and leverages existing content in a lake to prepare it for further translation. Also applies relevant language assets.")]
+    [Action("Prepare Content", Description = "Prepare a file for translation by leveraging matching content from a lake and applying relevant variant assets.")]
     public async Task<LeverageOutput> Leverage([ActionParameter] LakeInput lake, [ActionParameter] LeverageInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
@@ -25,8 +25,9 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         var request = new RestRequest($"/lakes/{lake.LakeId}/leverage", Method.Post);
         request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);
 
-        request.AddParameter("sourceExternalContentId", input.SourceContentId);
+        request.AddParameter("sourceExternalContentId", input.SourceContentId);        
         request.AddParameter("variant", input.TargetVariant);
+        request.AddParameter("strategyId", input.StrategyId);
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
@@ -99,7 +100,7 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         }
     }
 
-    [Action("Store Content", Description = "Store a file in a lake. This can be any interoperable supported file type, including monolingual files.")]
+    [Action("Store Content", Description = "Store translated or monolingual content in a lake for future leveraging.")]
     public async Task Commit([ActionParameter] LakeInput lake, [ActionParameter] CommitInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
@@ -110,6 +111,7 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddParameter("preview", false);
         request.AddParameter("workflow", InvocationContext.Bird?.Name);
         request.AddParameter("workflowReference", InvocationContext.Flight?.Url);
+        request.AddParameter("sourceExternalContentId", input.SourceContentId);
 
         if (input.AlignmentVariant != null)
         {

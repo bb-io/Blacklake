@@ -14,7 +14,7 @@ namespace Apps.Blacklake.Actions;
 [ActionList("Metadata")]
 public class MetadataActions(InvocationContext invocationContext) : BlacklakeInvocable(invocationContext)
 {
-    [Action("Update text metadata", Description = "Update a metadata text value on a particular content variant")]
+    [Action("Update text metadata", Description = "Update a text metadata value for a content variant")]
     public async Task UpdateTextMetadata(
         [ActionParameter] LakeInput lake, 
         [ActionParameter][Display("Field")][DataSource(typeof(TextMetaFieldDataHandler))] string metaFieldId,
@@ -24,7 +24,7 @@ public class MetadataActions(InvocationContext invocationContext) : BlacklakeInv
         await UpdateMetadata(lake, input, metaFieldId, value);
     }
 
-    [Action("Update number metadata", Description = "Update a metadata number value on a particular content variant")]
+    [Action("Update number metadata", Description = "Update a number metadata value for a content variant")]
     public async Task UpdateNumberMetadata(
         [ActionParameter] LakeInput lake,
         [ActionParameter][Display("Field")][DataSource(typeof(NumberMetaFieldDataHandler))] string metaFieldId,
@@ -34,7 +34,7 @@ public class MetadataActions(InvocationContext invocationContext) : BlacklakeInv
         await UpdateMetadata(lake, input, metaFieldId, value);
     }
 
-    [Action("Update boolean metadata", Description = "Update a metadata boolean value on a particular content variant")]
+    [Action("Update boolean metadata", Description = "Update a boolean metadata value for a content variant")]
     public async Task UpdateBooleanMetadata(
         [ActionParameter] LakeInput lake,
         [ActionParameter][Display("Field")][DataSource(typeof(BooleanMetaFieldDataHandler))] string metaFieldId,

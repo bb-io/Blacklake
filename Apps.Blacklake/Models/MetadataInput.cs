@@ -9,6 +9,6 @@ public class MetadataInput
     [DataSource(typeof(VariantDataHandler))]
     public string VariantCode { get; set; }
 
-    [Display("External content ID")]
+    [Display("External content ID", Description = "The content ID in the source system.")]
     public string ExternalContentId { get; set; }
 }
