@@ -27,7 +27,11 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
 
         request.AddParameter("sourceExternalContentId", input.SourceContentId);        
         request.AddParameter("variant", input.TargetVariant);
-        request.AddParameter("strategyId", input.StrategyId);
+
+        if (input.StrategyId is not null)
+        {
+            request.AddParameter("strategyId", input.StrategyId);
+        }        
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
