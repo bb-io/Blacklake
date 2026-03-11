@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <Product>Blacklake</Product>
         <Description>The new language data architecture</Description>
-        <Version>1.0.16</Version>
+        <Version>1.0.17</Version>
         <AssemblyName>Apps.Blacklake</AssemblyName>
     </PropertyGroup>
 
