@@ -40,7 +40,7 @@ Before you can connect you need to make sure that:
     - **Align with variant code**: Align monolingual content with a source variant.
     - **Source content ID**: If you are storing monolingual content and aligning it*.
 
-> * The source content ID advanced setting is only required when your CMS stores translations without links to each other (Usually the case when localization is not a native feature of the TMS).
+> (*) The source content ID advanced setting is only required when your CMS stores translations without links to each other (Usually the case when localization is not a native feature of the TMS).
 
 There are two distinct scenarios in which the **Store Content** Action is used:
   - Sending a translated file (first example below) will record the translation in Blacklake. It will store all the metadata and source units next to their translations. Applying the Lake after this action will repopulate the right units so that you significantly safe on translation cost.
