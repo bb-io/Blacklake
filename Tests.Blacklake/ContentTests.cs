@@ -36,4 +36,28 @@ public class ContentTests : TestBase
         Assert.IsTrue(result.TotalWords > 0);
         Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction > 0);
     }
+
+    [TestMethod]
+    public async Task Align()
+    {
+        var actions = new ContentActions(InvocationContext, new FileManager());
+        var lakeId = await GetLakeId();
+
+        var file = new FileReference { Name = "Remote_en_4.html" };
+        await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file });
+
+        var file2 = new FileReference { Name = "Remote_de_4.html" };
+        await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file2, AlignmentVariant = "en-us" });
+
+        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "de-de" });
+
+        Console.WriteLine($"Total words: {result.TotalWords}");
+        Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
+        Console.WriteLine($"Fraction leveraged: {result.LeveragedFraction}");
+        Console.WriteLine(result.File.Name);
+        Console.WriteLine(result.File.ContentType);
+        Assert.IsNotNull(result.File);
+        Assert.IsTrue(result.TotalWords > 0);
+        Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction > 0);
+    }
 }

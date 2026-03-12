@@ -23,15 +23,18 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         var fileBytes = await fileStream.GetByteData();
 
         var request = new RestRequest($"/lakes/{lake.LakeId}/leverage", Method.Post);
-        request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);
-
-        request.AddParameter("sourceExternalContentId", input.SourceContentId);        
+        request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);               
         request.AddParameter("variant", input.TargetVariant);
+        
+        if (input.SourceContentId is not null)
+        {
+            request.AddParameter("sourceExternalContentId", input.SourceContentId);
+        }
 
         if (input.StrategyId is not null)
         {
             request.AddParameter("strategyId", input.StrategyId);
-        }        
+        }
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
