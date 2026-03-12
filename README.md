@@ -6,7 +6,7 @@ Blackbird is the new automation backbone for the language technology industry. B
 
 <!-- begin docs -->
 
-> Blacklake is in early access for select Blackbird customers. Contact us if you want to participate in the next round.
+> You can try Blacklake today. Contact us if you want to participate.
 
 Blacklake is a modern linguistic data platform designed for today's continuous, multi-system content environment. It's built for teams who create, translate, and manage dynamic, multi-channel content.
 
@@ -40,7 +40,7 @@ Before you can connect you need to make sure that:
     - **Align with variant code**: Align monolingual content with a source variant.
     - **Source content ID**: If you are storing monolingual content and aligning it*.
 
-> (*) The source content ID advanced setting is only required when your CMS stores translations without links to each other (Usually the case when localization is not a native feature of the TMS).
+> (*) The source content ID advanced setting is only required when your CMS stores translations without links to each other (Usually the case when localization is not a native feature of the TMS or folder level localization is used.).
 
 There are two distinct scenarios in which the **Store Content** Action is used:
   - Sending a translated file (first example below) will record the translation in Blacklake. It will store all the metadata and source units next to their translations. Applying the Lake after this action will repopulate the right units so that you significantly safe on translation cost.
@@ -53,6 +53,8 @@ There are two distinct scenarios in which the **Store Content** Action is used:
 - **Update boolean metadata** Update a boolean metadata value for a content variant.
 
 > Metadata can be used in leveraging to perform KPI-based content usage.
+
+For more features, examples and FAQ see [our docs](https://docs.blackbird.io/blacklake/introduction/).
 
 ## Examples
 
