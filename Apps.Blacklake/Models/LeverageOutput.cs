@@ -14,5 +14,5 @@ public class LeverageOutput
     public int LeveragedWords { get; set; }
 
     [Display("Fraction leveraged")]
-    public double LeveragedFraction => (double)LeveragedWords / (double)TotalWords;
+    public double LeveragedFraction => TotalWords > 0 ? ((double)LeveragedWords / (double)TotalWords) : 0;
 }
