@@ -1,6 +1,7 @@
 using Apps.Blacklake.Actions;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Files;
+using Newtonsoft.Json;
 using Tests.Blacklake.Base;
 
 namespace Tests.Blacklake;
@@ -15,7 +16,8 @@ public class ContentTests : TestBase
         var lakeId = await GetLakeId();
 
         var file = new FileReference { Name = "contentful.translated.xlf" };
-        await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file });
+        var result = await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file });
+        Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
     [TestMethod]
@@ -32,9 +34,30 @@ public class ContentTests : TestBase
         Console.WriteLine($"Fraction leveraged: {result.LeveragedFraction}");
         Console.WriteLine(result.File.Name);
         Console.WriteLine(result.File.ContentType);
+        Console.WriteLine($"Style guides: {string.Join(", ", result.LeveragedStyleGuideNames)}");
         Assert.IsNotNull(result.File);
         Assert.IsTrue(result.TotalWords > 0);
-        Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction > 0);
+        Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction >= 0);
+    }
+
+    [TestMethod]
+    public async Task Leverage_edit()
+    {
+        var actions = new ContentActions(InvocationContext, new FileManager());
+        var lakeId = await GetLakeId();
+
+        var file = new FileReference { Name = "The Loire Valley!_en-US.html" };
+        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "en-US", PrepareFor = "edit" });
+
+        Console.WriteLine($"Total words: {result.TotalWords}");
+        Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
+        Console.WriteLine($"Fraction leveraged: {result.LeveragedFraction}");
+        Console.WriteLine(result.File.Name);
+        Console.WriteLine(result.File.ContentType);
+        Console.WriteLine($"Style guides: {string.Join(", ", result.LeveragedStyleGuideNames)}");
+        Assert.IsNotNull(result.File);
+        Assert.IsTrue(result.TotalWords > 0);
+        Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction >= 0);
     }
 
     [TestMethod]

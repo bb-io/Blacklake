@@ -1,5 +1,6 @@
 ﻿using Apps.Blacklake.DataHandlers;
 using Blackbird.Applications.Sdk.Common;
+using Blackbird.Applications.Sdk.Common.Dictionaries;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Files;
 
@@ -19,4 +20,8 @@ public class LeverageInput
     [Display("Strategy ID", Description = "Select a leveraging strategy configured in your Blacklake. If not set, content is only diffed.")]
     [DataSource(typeof(StrategyDataHandler))]
     public string? StrategyId { get; set; }
+
+    [Display("Prepare for", Description = "Whether to prepare for translation (default) or editing.")]
+    [StaticDataSource(typeof(PrepareForDataHandler))]
+    public string? PrepareFor { get; set; }
 }
