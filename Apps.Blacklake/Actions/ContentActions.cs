@@ -27,14 +27,13 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddParameter("variant", input.TargetVariant);
         
         if (input.SourceContentId is not null)
-        {
             request.AddParameter("sourceExternalContentId", input.SourceContentId);
-        }
 
         if (input.StrategyId is not null)
-        {
             request.AddParameter("strategyId", input.StrategyId);
-        }
+
+        if (input.PrepareFor is not null)
+            request.AddParameter("prepareFor", input.PrepareFor);
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
@@ -103,12 +102,13 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
                 File = uploaded,
                 LeveragedWords = metrics.TotalLeveragedWords,
                 TotalWords = metrics.TotalWords,
+                LeveragedStyleGuideNames = metrics.LeveragedStyleGuideNames,
             };
         }
     }
 
     [Action("Store Content", Description = "Store translated or monolingual content in a lake for future leveraging.")]
-    public async Task Commit([ActionParameter] LakeInput lake, [ActionParameter] CommitInput input)
+    public async Task<CommitOutput> Commit([ActionParameter] LakeInput lake, [ActionParameter] CommitInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
         var fileBytes = await fileStream.GetByteData();
@@ -125,6 +125,13 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
             request.AddParameter("sourceVariant", input.AlignmentVariant);
         }
 
-        await Client.ExecuteWithErrorHandling(request);
+        var result = await Client.ExecuteWithErrorHandling<ContentChangeAndRulesDto>(request);
+
+        return new CommitOutput
+        {
+            UnitsAdded = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Added.Count()),
+            UnitsUpdated = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Updated.Count()),
+            UnitsRemoved = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Removed.Count()),
+        };
     }
 }

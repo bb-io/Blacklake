@@ -22,7 +22,7 @@ Before you can connect you need to make sure that:
 2. Click _Add Connection_.
 3. Name your connection for future reference e.g. 'My Blacklake connection'.
 4. Fill in the URL to your Blacklake server.
-5. Fill in the accompanying Key.
+5. Fill in your Blacklake project key.
 6. Click _Connect_.
 
 ![1763034376733](image/README/1763034376733.png)
@@ -33,18 +33,18 @@ Before you can connect you need to make sure that:
 
 - **Prepare Content** Prepare a file for translation by leveraging matching content from a lake and applying relevant variant assets.
     Advanced settings:
-    - **Source content ID**: Specify the source content ID when your CMS stores translations without links to each other*.
-    - **Strategy ID**: Select a leveraging strategy configured in your Blacklake.
+    - **Source content ID**: Specify the source content ID when your CMS stores translations without links to each other.
+    - **Strategy ID**: Select a leveraging strategy configured in your Blacklake. If not set, content is only diffed.
+    - **Prepare for**: Choose whether to prepare the content for translation or editing.
 - **Store Content** Store translated or monolingual content in a lake for future leveraging.
     Advanced settings:
-    - **Align with variant code**: Align monolingual content with a source variant.
-    - **Source content ID**: If you are storing monolingual content and aligning it*.
+    - **Align with variant code**: If you are storing monolingual content, align it with a source variant.
 
-> (*) The source content ID advanced setting is only required when your CMS stores translations without links to each other (Usually the case when localization is not a native feature of the TMS or folder level localization is used.).
+> The source content ID advanced setting is only needed when your CMS stores translations without links between source and target content.
 
 There are two distinct scenarios in which the **Store Content** Action is used:
-  - Sending a translated file (first example below) will record the translation in Blacklake. It will store all the metadata and source units next to their translations. Applying the Lake after this action will repopulate the right units so that you significantly safe on translation cost.
-  - Sending a monolingual file (second example) will commit the file without any translation metadata, but will make changes to the target of translations if they exist. This enables you to synchronize any edits made outside of the translation process into Blacklake and enable "in-context editing".
+- Sending a translated file (first example below) records the translation in Blacklake. It stores the metadata and source units next to their translations so future preparation can reuse the right units and reduce translation cost.
+- Sending a monolingual file (second example) stores the file without translation metadata, but updates existing target content when available. This helps synchronize edits made outside the translation process and supports in-context editing.
 
 ### Metadata
 
