@@ -1,5 +1,5 @@
 ﻿namespace Apps.Blacklake.Dto;
-public class StrategyDto
+public class NamedEntityDto
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }

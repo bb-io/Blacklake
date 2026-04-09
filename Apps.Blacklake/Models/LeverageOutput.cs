@@ -18,4 +18,13 @@ public class LeverageOutput
 
     [Display("Leveraged style guides", Description = "The style guides that were leveraged depending on the variant")]
     public IEnumerable<string> LeveragedStyleGuideNames { get; set; } = [];
+
+    [Display("Total keywords added", Description = "The amount of keywords leveraged from the selected termbases")]
+    public int TotalGlobalDesiredAdded { get; set; } = 0;
+
+    [Display("Total forbidden words added", Description = "The amount of forbidden words leveraged from the selected termbases")]
+    public int TotalGlobalForbiddenAdded { get; set; } = 0;
+
+    [Display("Total local terms added", Description = "The amount of words with definitions or translations leveraged from the selected termbases that were found in the content")]
+    public int TotalLocalTermsAdded { get; set; } = 0;
 }

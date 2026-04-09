@@ -24,4 +24,8 @@ public class LeverageInput
     [Display("Prepare for", Description = "Whether to prepare for translation (default) or editing.")]
     [StaticDataSource(typeof(PrepareForDataHandler))]
     public string? PrepareFor { get; set; }
+
+    [Display("Termbase IDs", Description = "Select termbases to be levarged.")]
+    [DataSource(typeof(TermbaseDataHandler))]
+    public IEnumerable<string>? TermbaseIds { get; set; }
 }
