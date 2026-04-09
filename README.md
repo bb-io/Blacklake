@@ -36,6 +36,7 @@ Before you can connect you need to make sure that:
     - **Source content ID**: Specify the source content ID when your CMS stores translations without links to each other.
     - **Strategy ID**: Select a leveraging strategy configured in your Blacklake. If not set, content is only diffed.
     - **Prepare for**: Choose whether to prepare the content for translation or editing.
+    - **Termbase IDs**: Choose whether to leverage termbases for their translations, definitions, keywords and forbidden words.
 - **Store Content** Store translated or monolingual content in a lake for future leveraging.
     Advanced settings:
     - **Align with variant code**: If you are storing monolingual content, align it with a source variant.

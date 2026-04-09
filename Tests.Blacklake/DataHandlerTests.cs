@@ -53,6 +53,21 @@ public class DataHandlerTests : TestBase
     }
 
     [TestMethod]
+    public async Task Termbases()
+    {
+        var lakeId = await GetLakeId();
+        var handler = new TermbaseDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
+
+        Assert.IsNotNull(result);
+        foreach (var item in result)
+        {
+            Console.WriteLine($"{item.Value} - {item.DisplayName}");
+            Assert.IsNotNull(item);
+        }
+    }
+
+    [TestMethod]
     public async Task Text_metadata()
     {
         var lakeId = await GetLakeId();

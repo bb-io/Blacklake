@@ -3,6 +3,7 @@ using Apps.Blacklake.Helpers;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
+using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Blackbird.Applications.Sdk.Utils.Extensions.Files;
 using Blackbird.Applications.SDK.Extensions.FileManagement.Interfaces;
@@ -34,6 +35,21 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
 
         if (input.PrepareFor is not null)
             request.AddParameter("prepareFor", input.PrepareFor);
+
+        if (input.TermbaseIds is not null && input.TermbaseIds.Any())
+        {
+            var invalidTermbaseIds = input.TermbaseIds
+                .Where(x => !Guid.TryParse(x, out _))
+                .ToList();
+
+            if (invalidTermbaseIds.Count != 0)
+                throw new PluginMisconfigurationException($"Invalid termbase ID value(s): {string.Join(", ", invalidTermbaseIds)}. Termbase IDs must be valid GUIDs.");
+
+            foreach (var termbaseId in input.TermbaseIds)
+            {
+                request.AddParameter("termbaseIds", termbaseId);
+            }
+        }
 
         var result = await Client.ExecuteWithErrorHandling(request);
 
@@ -103,6 +119,9 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
                 LeveragedWords = metrics.TotalLeveragedWords,
                 TotalWords = metrics.TotalWords,
                 LeveragedStyleGuideNames = metrics.LeveragedStyleGuideNames,
+                TotalGlobalDesiredAdded = metrics.TotalGlobalDesiredAdded,
+                TotalGlobalForbiddenAdded = metrics.TotalGlobalForbiddenAdded,
+                TotalLocalTermsAdded = metrics.TotalLocalTermsAdded,
             };
         }
     }

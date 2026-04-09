@@ -41,6 +41,18 @@ public class ContentTests : TestBase
     }
 
     [TestMethod]
+    public async Task Leverage_termbases()
+    {
+        var actions = new ContentActions(InvocationContext, new FileManager());
+        var lakeId = await GetLakeId();
+
+        var file = new FileReference { Name = "The Loire Valley!_en-US.html" };
+        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "nl", TermbaseIds = ["0925f3be-f94f-4b3e-921b-973b9ab49783"] });
+
+        Assert.IsTrue(result.TotalGlobalDesiredAdded > 0);
+    }
+
+    [TestMethod]
     public async Task Leverage_edit()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
@@ -82,5 +94,23 @@ public class ContentTests : TestBase
         Assert.IsNotNull(result.File);
         Assert.IsTrue(result.TotalWords > 0);
         Assert.IsTrue(result.LeveragedFraction <= 1 && result.LeveragedFraction > 0);
+    }
+
+    [TestMethod]
+    public async Task Edit()
+    {
+        var actions = new ContentActions(InvocationContext, new FileManager());
+        var lakeId = await GetLakeId();
+
+        var file = new FileReference { Name = "Das Loiretal_de_23_3.html" };
+        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "de", PrepareFor = "edit" });
+
+        Console.WriteLine($"Total words: {result.TotalWords}");
+        Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
+        Console.WriteLine($"Fraction leveraged: {result.LeveragedFraction}");
+        Console.WriteLine(result.File.Name);
+        Console.WriteLine(result.File.ContentType);
+        Assert.IsNotNull(result.File);
+        Assert.IsTrue(result.TotalWords > 0);
     }
 }
