@@ -47,6 +47,12 @@ There are two distinct scenarios in which the **Store Content** Action is used:
 - Sending a translated file (first example below) records the translation in Blacklake. It stores the metadata and source units next to their translations so future preparation can reuse the right units and reduce translation cost.
 - Sending a monolingual file (second example) stores the file without translation metadata, but updates existing target content when available. This helps synchronize edits made outside the translation process and supports in-context editing.
 
+### Termbases
+- **Upload Termbase** Uploads a termbase (TBX file) to your Lake. By default this creates a new termbase.
+    Advanced settings:
+    - **Termbase ID**: Choose an existing termbase in your Lake. If set, this termbase will be updated instead of a new one being created.
+    - **Delete missing**: If updating a termbase, and setting this input to true, Blacklake will remove terms that are in the Lake but are missing from the TBX file. Use this if you want a full sync with the TBX file.
+
 ### Metadata
 
 - **Update text metadata** Update a text metadata value for a content variant.

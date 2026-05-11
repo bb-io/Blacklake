@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<martif type="TBX" xml:lang="en">
+  <martifHeader>
+    <fileDesc>
+      <sourceDesc>
+        <p>Crowdin Enterprise glossary download</p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <p type="XCSURI">http://www.lisa.org/fileadmin/standards/tbx_basic/TBXBasicXCSV02.xcs</p>
+    </encodingDesc>
+  </martifHeader>
+  <text>
+    <body>
+      <termEntry id="db8e1af0cb3aca1ae2d0018624204529276">
+        <langSet xml:lang="en">
+          <tig>
+            <term id="db8e1af0cb3aca1ae2d0018624204529276-en">father</term>
+            <termNote type="partOfSpeech">noun</termNote>
+            <descrip type="definition">father</descrip>
+          </tig>
+        </langSet>
+      </termEntry>
+      <termEntry id="20f07591c6fcb220ffe637cda29bb3f6277">
+        <langSet xml:lang="en">
+          <tig>
+            <term id="20f07591c6fcb220ffe637cda29bb3f6277-en">Test</term>
+            <termNote type="partOfSpeech">noun</termNote>
+            <descrip type="definition">Description</descrip>
+          </tig>
+        </langSet>
+        <langSet xml:lang="nl">
+          <tig>
+            <term id="20f07591c6fcb220ffe637cda29bb3f6277-nl">Ook een test</term>
+          </tig>
+        </langSet>
+      </termEntry>
+    </body>
+  </text>
+</martif>
