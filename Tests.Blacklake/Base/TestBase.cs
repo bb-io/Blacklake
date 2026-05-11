@@ -35,24 +35,37 @@ public class TestBase
         FileManager = new FileManager();
     }
 
-    public async Task<string> GetLakeId()
+    private LakeInput _lakeInput;
+    public async Task<LakeInput> GetLakeInput()
     {
+        if (_lakeInput is not null) return _lakeInput;
         var handler = new LakeDataHandler(InvocationContext);
         var lakesResult = await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
-        return lakesResult.First().Value;
+        _lakeInput = new LakeInput { LakeId = lakesResult.First().Value };
+        return _lakeInput;
+    }
+
+    private string _termbaseId;
+    public async Task<string> GetTermbaseId(LakeInput lakeInput)
+    {
+        if (_termbaseId is not null) return _termbaseId;
+        var handler = new TermbaseDataHandler(InvocationContext, lakeInput);
+        var lakesResult = await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
+        _termbaseId = lakesResult.First().Value;
+        return _termbaseId;
     }
 
     public async Task<IEnumerable<DataSourceItem>> GetTextFieldIds()
     {
-        var lakeId = await GetLakeId();
-        var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new TextMetaFieldDataHandler(InvocationContext, lake);
         return await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
     }
 
     public async Task<IEnumerable<DataSourceItem>> GetNumberFieldIds()
     {
-        var lakeId = await GetLakeId();
-        var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new TextMetaFieldDataHandler(InvocationContext, lake);
         return await handler.GetDataAsync(new DataSourceContext { }, CancellationToken.None);
     }
 }

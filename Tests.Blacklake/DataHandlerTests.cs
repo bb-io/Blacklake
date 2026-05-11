@@ -25,8 +25,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Variants()
     {
-        var lakeId = await GetLakeId();
-        var handler = new VariantDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new VariantDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);
@@ -40,8 +40,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Strategies()
     {
-        var lakeId = await GetLakeId();
-        var handler = new StrategyDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new StrategyDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);
@@ -55,8 +55,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Termbases()
     {
-        var lakeId = await GetLakeId();
-        var handler = new TermbaseDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new TermbaseDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);
@@ -70,8 +70,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Text_metadata()
     {
-        var lakeId = await GetLakeId();
-        var handler = new TextMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new TextMetaFieldDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);
@@ -85,8 +85,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Number_metadata()
     {
-        var lakeId = await GetLakeId();
-        var handler = new NumberMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new NumberMetaFieldDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);
@@ -100,8 +100,8 @@ public class DataHandlerTests : TestBase
     [TestMethod]
     public async Task Boolean_metadata()
     {
-        var lakeId = await GetLakeId();
-        var handler = new BooleanMetaFieldDataHandler(InvocationContext, new LakeInput { LakeId = lakeId });
+        var lake = await GetLakeInput();
+        var handler = new BooleanMetaFieldDataHandler(InvocationContext, lake);
         var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
 
         Assert.IsNotNull(result);

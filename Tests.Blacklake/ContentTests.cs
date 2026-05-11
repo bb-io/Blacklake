@@ -13,10 +13,10 @@ public class ContentTests : TestBase
     public async Task Commit()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "contentful.translated.xlf" };
-        var result = await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file });
+        var result = await actions.Commit(lake, new CommitInput { File = file });
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
@@ -24,10 +24,10 @@ public class ContentTests : TestBase
     public async Task Leverage()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "The Loire Valley!_en-US.html" };
-        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "nl" });
+        var result = await actions.Leverage(lake, new LeverageInput { File = file, TargetVariant = "nl" });
 
         Console.WriteLine($"Total words: {result.TotalWords}");
         Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
@@ -44,10 +44,10 @@ public class ContentTests : TestBase
     public async Task Leverage_termbases()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "The Loire Valley!_en-US.html" };
-        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "nl", TermbaseIds = ["0925f3be-f94f-4b3e-921b-973b9ab49783"] });
+        var result = await actions.Leverage(lake, new LeverageInput { File = file, TargetVariant = "nl", TermbaseIds = ["0925f3be-f94f-4b3e-921b-973b9ab49783"] });
 
         Assert.IsTrue(result.TotalGlobalDesiredAdded > 0);
     }
@@ -56,10 +56,10 @@ public class ContentTests : TestBase
     public async Task Leverage_edit()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "The Loire Valley!_en-US.html" };
-        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "en-US", PrepareFor = "edit" });
+        var result = await actions.Leverage(lake, new LeverageInput { File = file, TargetVariant = "en-US", PrepareFor = "edit" });
 
         Console.WriteLine($"Total words: {result.TotalWords}");
         Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
@@ -76,15 +76,15 @@ public class ContentTests : TestBase
     public async Task Align()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "Remote_en_4.html" };
-        await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file });
+        await actions.Commit(lake, new CommitInput { File = file });
 
         var file2 = new FileReference { Name = "Remote_de_4.html" };
-        await actions.Commit(new LakeInput { LakeId = lakeId }, new CommitInput { File = file2, AlignmentVariant = "en-us" });
+        await actions.Commit(lake, new CommitInput { File = file2, AlignmentVariant = "en-us" });
 
-        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "de-de" });
+        var result = await actions.Leverage(lake, new LeverageInput { File = file, TargetVariant = "de-de" });
 
         Console.WriteLine($"Total words: {result.TotalWords}");
         Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
@@ -100,10 +100,10 @@ public class ContentTests : TestBase
     public async Task Edit()
     {
         var actions = new ContentActions(InvocationContext, new FileManager());
-        var lakeId = await GetLakeId();
+        var lake = await GetLakeInput();
 
         var file = new FileReference { Name = "Das Loiretal_de_23_3.html" };
-        var result = await actions.Leverage(new LakeInput { LakeId = lakeId }, new LeverageInput { File = file, TargetVariant = "de", PrepareFor = "edit" });
+        var result = await actions.Leverage(lake, new LeverageInput { File = file, TargetVariant = "de", PrepareFor = "edit" });
 
         Console.WriteLine($"Total words: {result.TotalWords}");
         Console.WriteLine($"Leveraged words: {result.LeveragedWords}");
