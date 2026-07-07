@@ -139,6 +139,11 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddParameter("workflowReference", InvocationContext.Flight?.Url);
         request.AddParameter("sourceExternalContentId", input.SourceContentId);
 
+        if (input.Variant != null)
+        {
+            request.AddParameter("variant", input.Variant);
+        }
+
         if (input.AlignmentVariant != null)
         {
             request.AddParameter("sourceVariant", input.AlignmentVariant);
