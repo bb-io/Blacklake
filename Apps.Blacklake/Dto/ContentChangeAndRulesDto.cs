@@ -25,6 +25,7 @@ public class ChangeDto
     public string? Key { get; set; }
     public IEnumerable<AddedUnitDto> Added { get; set; } = [];
     public IEnumerable<UpdatedUnitDto> Updated { get; set; } = [];
+    public IEnumerable<UpdatedUnitDto> MetadataUpdated { get; set; } = [];
     public IEnumerable<RemovedUnitDto> Removed { get; set; } = [];
 }
 

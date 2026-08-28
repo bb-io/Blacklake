@@ -155,6 +155,7 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         {
             UnitsAdded = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Added.Count()),
             UnitsUpdated = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Updated.Count()),
+            UnitsMetadataUpdated = result.Changes.SelectMany(x => x.Changes).Sum(y => y.MetadataUpdated.Count()),
             UnitsRemoved = result.Changes.SelectMany(x => x.Changes).Sum(y => y.Removed.Count()),
         };
     }
