@@ -5,7 +5,6 @@ using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
-using Blackbird.Applications.Sdk.Utils.Extensions.Files;
 using Blackbird.Applications.SDK.Extensions.FileManagement.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
@@ -21,31 +20,36 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
     public async Task<LeverageOutput> Leverage([ActionParameter] LakeInput lake, [ActionParameter] LeverageInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
-        var fileBytes = await fileStream.GetByteData();
+        var (fileBytes, fileName, fileMediaType) = await ContentFileHelper.ApplyMetadataOverrides(fileStream, input.File,
+            (transformation, _) =>
+            {
+                transformation.SourceLanguage = transformation.SourceLanguage.OverrideWith(input.SourceVariant);
+                transformation.SourceSystemReference.ContentId = transformation.SourceSystemReference.ContentId.OverrideWith(input.SourceContentId);
+            });
 
         var request = new RestRequest($"/lakes/{lake.LakeId}/leverage", Method.Post);
-        request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);               
-        request.AddParameter("variant", input.TargetVariant);
-        
-        if (input.SourceContentId is not null)
-            request.AddParameter("sourceExternalContentId", input.SourceContentId);
+        request.AddFile("file", fileBytes, fileName, fileMediaType);
+        request.AddOverrideParameter("variant", input.TargetVariant);
+        request.AddOverrideParameter("sourceVariant", input.SourceVariant);
+        request.AddOverrideParameter("sourceExternalContentId", input.SourceContentId);
+        request.AddOverrideParameter("strategyId", input.StrategyId);
+        request.AddOverrideParameter("prepareFor", input.PrepareFor);
 
-        if (input.StrategyId is not null)
-            request.AddParameter("strategyId", input.StrategyId);
+        var termbaseIds = input.TermbaseIds?
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x.Trim())
+            .ToList() ?? [];
 
-        if (input.PrepareFor is not null)
-            request.AddParameter("prepareFor", input.PrepareFor);
-
-        if (input.TermbaseIds is not null && input.TermbaseIds.Any())
+        if (termbaseIds.Count != 0)
         {
-            var invalidTermbaseIds = input.TermbaseIds
+            var invalidTermbaseIds = termbaseIds
                 .Where(x => !Guid.TryParse(x, out _))
                 .ToList();
 
             if (invalidTermbaseIds.Count != 0)
                 throw new PluginMisconfigurationException($"Invalid termbase ID value(s): {string.Join(", ", invalidTermbaseIds)}. Termbase IDs must be valid GUIDs.");
 
-            foreach (var termbaseId in input.TermbaseIds)
+            foreach (var termbaseId in termbaseIds)
             {
                 request.AddParameter("termbaseIds", termbaseId);
             }
@@ -130,24 +134,29 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
     public async Task<CommitOutput> Commit([ActionParameter] LakeInput lake, [ActionParameter] CommitInput input)
     {
         using var fileStream = await fileManagementClient.DownloadAsync(input.File);
-        var fileBytes = await fileStream.GetByteData();
+        var (fileBytes, fileName, mediaType) = await ContentFileHelper.ApplyMetadataOverrides(fileStream, input.File,
+            (transformation, isBilingual) =>
+            {
+                if (isBilingual)
+                {
+                    transformation.TargetLanguage = transformation.TargetLanguage.OverrideWith(input.Variant);
+                    transformation.SourceLanguage = transformation.SourceLanguage.OverrideWith(input.AlignmentVariant);
+                    transformation.SourceSystemReference.ContentId = transformation.SourceSystemReference.ContentId.OverrideWith(input.SourceContentId);
+                }
+                else
+                {
+                    transformation.SourceLanguage = transformation.SourceLanguage.OverrideWith(input.Variant);
+                }
+            });
 
         var request = new RestRequest($"/lakes/{lake.LakeId}/commit", Method.Post);
-        request.AddFile("file", fileBytes, input.File.Name, input.File.ContentType);
+        request.AddFile("file", fileBytes, fileName, mediaType);
         request.AddParameter("preview", false);
         request.AddParameter("workflow", InvocationContext.Bird?.Name);
         request.AddParameter("workflowReference", InvocationContext.Flight?.Url);
-        request.AddParameter("sourceExternalContentId", input.SourceContentId);
-
-        if (input.Variant != null)
-        {
-            request.AddParameter("variant", input.Variant);
-        }
-
-        if (input.AlignmentVariant != null)
-        {
-            request.AddParameter("sourceVariant", input.AlignmentVariant);
-        }
+        request.AddOverrideParameter("sourceExternalContentId", input.SourceContentId);
+        request.AddOverrideParameter("variant", input.Variant);
+        request.AddOverrideParameter("sourceVariant", input.AlignmentVariant);
 
         var result = await Client.ExecuteWithErrorHandling<ContentChangeAndRulesDto>(request);
 

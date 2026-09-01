@@ -14,7 +14,11 @@ public class LeverageInput
     [DataSource(typeof(VariantDataHandler))]
     public string TargetVariant { get; set; }
 
-    [Display("Source content ID", Description = "Specify the source content ID. Use when your CMS stores translations without links to each other.")]
+    [Display("Source variant code", Description = "The variant the content in the file is written in. If set, this overrides the language declared in the file. Leave empty to use the file's own metadata.")]
+    [DataSource(typeof(VariantDataHandler))]
+    public string? SourceVariant { get; set; }
+
+    [Display("Source content ID", Description = "Specify the source content ID. Use when your CMS stores translations without links to each other. If set, this overrides the content ID declared in the file.")]
     public string? SourceContentId { get; set; }
 
     [Display("Strategy ID", Description = "Select a leveraging strategy configured in your Blacklake. If not set, content is only diffed.")]
