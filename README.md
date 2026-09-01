@@ -33,6 +33,7 @@ Before you can connect you need to make sure that:
 
 - **Prepare Content** Prepare a file for translation by leveraging matching content from a lake and applying relevant variant assets.
     Advanced settings:
+    - **Source variant code**: The variant the content in the file is written in. Leave empty to use the language declared in the file.
     - **Source content ID**: Specify the source content ID when your CMS stores translations without links to each other.
     - **Strategy ID**: Select a leveraging strategy configured in your Blacklake. If not set, content is only diffed.
     - **Prepare for**: Choose whether to prepare the content for translation or editing.
@@ -42,6 +43,8 @@ Before you can connect you need to make sure that:
     - **Align with variant code**: If you are storing monolingual content, align it with a source variant.
 
 > The source content ID advanced setting is only needed when your CMS stores translations without links between source and target content.
+
+> Variant code and content ID inputs always take precedence over the metadata inside the uploaded file. Leave them empty to use the metadata that the bilingual or monolingual file already carries.
 
 There are two distinct scenarios in which the **Store Content** Action is used:
 - Sending a translated file (first example below) records the translation in Blacklake. It stores the metadata and source units next to their translations so future preparation can reuse the right units and reduce translation cost.
