@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <Product>Blacklake</Product>
         <Description>The new language data architecture</Description>
-        <Version>1.0.25</Version>
+        <Version>1.0.26</Version>
         <AssemblyName>Apps.Blacklake</AssemblyName>
     </PropertyGroup>
 
@@ -22,6 +22,7 @@
         <PackageReference Include="Blackbird.Applications.Sdk.Common" Version="2.13.0" />
         <PackageReference Include="Blackbird.Applications.Sdk.Utils" Version="1.0.25" />
         <PackageReference Include="Blackbird.Filters" Version="1.2.16" />
+        <PackageReference Include="Polly" Version="8.2.0" />
     </ItemGroup>
 
 </Project>
