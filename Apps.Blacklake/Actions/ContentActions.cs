@@ -35,6 +35,11 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddOverrideParameter("strategyId", input.StrategyId);
         request.AddOverrideParameter("prepareFor", input.PrepareFor);
 
+        if (input.DiffDrafts.HasValue)
+        {
+            request.AddParameter("diffDrafts", input.DiffDrafts.Value);
+        }
+
         var termbaseIds = input.TermbaseIds?
             .Where(x => !string.IsNullOrWhiteSpace(x))
             .Select(x => x.Trim())
@@ -157,6 +162,11 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
         request.AddOverrideParameter("sourceExternalContentId", input.SourceContentId);
         request.AddOverrideParameter("variant", input.Variant);
         request.AddOverrideParameter("sourceVariant", input.AlignmentVariant);
+
+        if (input.IsDraft.HasValue)
+        {
+            request.AddParameter("isDraft", input.IsDraft.Value);
+        }        
 
         var result = await Client.ExecuteWithErrorHandling<ContentChangeAndRulesDto>(request);
 

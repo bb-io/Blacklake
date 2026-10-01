@@ -38,6 +38,36 @@ public class DataHandlerTests : TestBase
     }
 
     [TestMethod]
+    public async Task VariantsIds()
+    {
+        var lake = await GetLakeInput();
+        var handler = new VariantIdDataHandler(InvocationContext, lake);
+        var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
+
+        Assert.IsNotNull(result);
+        foreach (var item in result)
+        {
+            Console.WriteLine($"{item.Value} - {item.DisplayName}");
+            Assert.IsNotNull(item);
+        }
+    }
+
+    [TestMethod]
+    public async Task SystemIds()
+    {
+        var lake = await GetLakeInput();
+        var handler = new SystemIdDataHandler(InvocationContext, lake);
+        var result = await handler.GetDataAsync(new Blackbird.Applications.Sdk.Common.Dynamic.DataSourceContext { }, CancellationToken.None);
+
+        Assert.IsNotNull(result);
+        foreach (var item in result)
+        {
+            Console.WriteLine($"{item.Value} - {item.DisplayName}");
+            Assert.IsNotNull(item);
+        }
+    }
+
+    [TestMethod]
     public async Task Strategies()
     {
         var lake = await GetLakeInput();
