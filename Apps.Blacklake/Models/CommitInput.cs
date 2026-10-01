@@ -20,4 +20,7 @@ public class CommitInput
 
     [Display("Source content ID", Description = "If you are storing monolingual content and aligning it, specify the source content ID. Relevant when your CMS stores translations without links to each other. If set, this overrides the content ID declared in the file.")]
     public string? SourceContentId { get; set; }
+
+    [Display("Draft?", Description = "Whether the commited content is a draft, meaning it is not published to the source yet but rather the result of an intermediate step.")]
+    public bool? IsDraft { get; set; }
 }

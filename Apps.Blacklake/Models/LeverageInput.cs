@@ -32,4 +32,8 @@ public class LeverageInput
     [Display("Termbase IDs", Description = "Select termbases to be levarged.")]
     [DataSource(typeof(TermbaseDataHandler))]
     public IEnumerable<string>? TermbaseIds { get; set; }
+
+    [Display("Include drafts?", Description = "Whether the content should be prepared with drafts saved in the Lake. Defaults to false.")]
+    [DataSource(typeof(VariantDataHandler))]
+    public bool? DiffDrafts { get; set; }
 }
