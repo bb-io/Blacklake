@@ -5,6 +5,7 @@ using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Blackbird.Applications.Sdk.Common.Polling;
 using RestSharp;
+using System.Globalization;
 
 namespace Apps.Blacklake.Events;
 
@@ -32,17 +33,23 @@ public class PollingList(InvocationContext invocationContext) : BlacklakeInvocab
         var lastDate = request.Memory.LastPollSince.Value;
         var now = DateTime.UtcNow;
 
-        var restRequest = new RestRequest($"/lakes/{lake.LakeId}/content", Method.Post);
-        restRequest.AddParameter("draftChangedSince", lastDate);
+        var restRequest = new RestRequest($"/lakes/{lake.LakeId}/content", Method.Get);
+        restRequest.AddQueryParameter("draftChangedSince", lastDate.ToUniversalTime().ToString("O", CultureInfo.InvariantCulture));
 
-        foreach (var variantId in filters.VariantIds.Where(id => !string.IsNullOrEmpty(id)))
+        if (filters.VariantIds is not null && filters.VariantIds.Any())
         {
-            restRequest.AddParameter("variantIds", variantId);
+            foreach (var variantId in filters.VariantIds.Where(id => !string.IsNullOrEmpty(id)))
+            {
+                restRequest.AddQueryParameter("variantIds", variantId);  
+            }
         }
 
-        foreach (var systemId in filters.SystemIds.Where(id => !string.IsNullOrEmpty(id)))
+        if (filters.SystemIds is not null && filters.SystemIds.Any())
         {
-            restRequest.AddParameter("systemIds", systemId);
+            foreach (var systemId in filters.SystemIds.Where(id => !string.IsNullOrEmpty(id)))
+            {
+                restRequest.AddQueryParameter("systemIds", systemId);
+            }
         }
 
         var response = await Client.ExecuteWithErrorHandling<IEnumerable<ContentDto>>(restRequest);
