@@ -7,6 +7,12 @@ public class LeverageOutput
     [Display("Leveraged file")]
     public FileReference File { get; set; }
 
+    [Display("Prepared variant", Description = "The variant code that was prepared for")]
+    public string VariantCode { get; set; }
+
+    [Display("Lake ID", Description = "The Laked that was used to prepare the content")]
+    public string LakeId { get; set; }
+
     [Display("Total words")]
     public int TotalWords { get; set; }
 

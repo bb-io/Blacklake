@@ -1,5 +1,6 @@
 using System.Net;
 using Apps.Blacklake.Constants;
+using Apps.Blacklake.Dto;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Blackbird.Applications.Sdk.Common.Exceptions;
@@ -19,6 +20,7 @@ public class BlacklakeClient : BlackBirdRestClient
     private const int MaxBackoffSeconds = 16;
 
     private static readonly Random Jitter = new();
+    private IEnumerable<VariantDto>? Variants;
 
     private static readonly HashSet<HttpStatusCode> TransientStatusCodes =
     [
@@ -80,5 +82,30 @@ public class BlacklakeClient : BlackBirdRestClient
 
         var backoff = Math.Min(BaseBackoffSeconds * Math.Pow(2, retryAttempt - 1), MaxBackoffSeconds);
         return TimeSpan.FromSeconds(backoff) + TimeSpan.FromMilliseconds(Jitter.Next(0, 500));
+    }
+
+    public async Task<IEnumerable<VariantDto>> GetLakeVariants(LakeInput lakeInput)
+    {
+        if (Variants is not null) return Variants;
+        var request = new RestRequest($"/lakes/{lakeInput.LakeId}/variants", Method.Get);
+        Variants = await ExecuteWithErrorHandling<IEnumerable<VariantDto>>(request);
+        return Variants;
+    }
+
+    public async Task<VariantDto?> GetVariantFromCodeOrGuid(LakeInput lakeInput, string? variantCodeOrGuid)
+    {
+        if (string.IsNullOrWhiteSpace(variantCodeOrGuid)) return null;
+        var variants = await GetLakeVariants(lakeInput);
+
+        if (Guid.TryParse(variantCodeOrGuid, out var result))
+        {            
+            var variant = variants.FirstOrDefault(x => x.Id == variantCodeOrGuid);
+            return variant;
+        }
+        else
+        {
+            var variant = variants.FirstOrDefault(x => x.AllCodes.Contains(variantCodeOrGuid));
+            return variant;
+        }                   
     }
 }

@@ -1,10 +1,8 @@
-﻿using Apps.Blacklake.Dto;
-using Apps.Blacklake.Models;
+﻿using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
-using RestSharp;
 
 namespace Apps.Blacklake.DataHandlers;
 public class VariantDataHandler(InvocationContext invocationContext, [ActionParameter] LakeInput lakeInput) : BlacklakeInvocable(invocationContext), IAsyncDataSourceItemHandler
@@ -13,8 +11,7 @@ public class VariantDataHandler(InvocationContext invocationContext, [ActionPara
     {
         if (lakeInput?.LakeId is null) throw new PluginMisconfigurationException("Please select a lake first");
 
-        var request = new RestRequest($"/lakes/{lakeInput.LakeId}/variants", Method.Get);
-        var result = await Client.ExecuteWithErrorHandling<IEnumerable<VariantDto>>(request);
+        var result = await Client.GetLakeVariants(lakeInput);
 
         return result
             .Where(x => context.SearchString == null || x.Name.Contains(context.SearchString, StringComparison.OrdinalIgnoreCase) )
