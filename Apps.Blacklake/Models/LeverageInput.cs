@@ -10,11 +10,11 @@ public class LeverageInput
     [Display("File")]
     public FileReference File { get; set; }
 
-    [Display("Target variant code", Description = "The variant code to prepare content for.")]
+    [Display("Target variant", Description = "The variant code to prepare content for.")]
     [DataSource(typeof(VariantDataHandler))]
     public string TargetVariant { get; set; }
 
-    [Display("Source variant code", Description = "The variant the content in the file is written in. If set, this overrides the language declared in the file. Leave empty to use the file's own metadata.")]
+    [Display("Source variant", Description = "The variant the content in the file is written in. If set, this overrides the language declared in the file. Leave empty to use the file's own metadata.")]
     [DataSource(typeof(VariantDataHandler))]
     public string? SourceVariant { get; set; }
 

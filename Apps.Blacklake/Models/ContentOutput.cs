@@ -7,8 +7,17 @@ public class ContentOutput
     [Display("Content ID")]
     public string Id { get; set; }
 
+    [Display("System ID")]
+    public string SystemId { get; set; }
+
     [Display("Variant ID")]
     public string VariantId { get; set; }
+
+    [Display("Variant")]
+    public string? TargetVariant { get; set; }
+
+    [Display("Lake ID")]
+    public string LakeId { get; set; }
 
     [Display("Name")]
     public string Name { get; set; }
@@ -17,14 +26,17 @@ public class ContentOutput
     public string ExternalId { get; set; }
 
     [Display("Source external ID")]
-    public string SourceExternalId { get; set; }
+    public string ContentId { get; set; }
 
-    public ContentOutput(ContentDto dto)
+    public ContentOutput(ContentDto dto, string? variantCode, string lakeId)
     {
         Id = dto.Id;
         VariantId = dto.VariantId;
         Name = dto.Name;
         ExternalId = dto.ExternalId;
-        SourceExternalId = dto.SourceExternalId;
+        ContentId = dto.SourceExternalId;
+        SystemId = dto.SystemId;
+        TargetVariant = variantCode;
+        LakeId = lakeId;
     }
 }

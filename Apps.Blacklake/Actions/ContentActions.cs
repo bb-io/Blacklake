@@ -27,10 +27,13 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
                 transformation.SourceSystemReference.ContentId = transformation.SourceSystemReference.ContentId.OverrideWith(input.SourceContentId);
             });
 
+        var targetVariant = await Client.GetVariantFromCodeOrGuid(lake, input.TargetVariant) ?? throw new PluginMisconfigurationException($"The variant {input.TargetVariant} does not exist in this Lake.");
+        var sourceVariant = await Client.GetVariantFromCodeOrGuid(lake, input.SourceVariant);
+
         var request = new RestRequest($"/lakes/{lake.LakeId}/leverage", Method.Post);
         request.AddFile("file", fileBytes, fileName, fileMediaType);
-        request.AddOverrideParameter("variant", input.TargetVariant);
-        request.AddOverrideParameter("sourceVariant", input.SourceVariant);
+        request.AddOverrideParameter("variant", targetVariant.DefaultCode);
+        request.AddOverrideParameter("sourceVariant", sourceVariant?.DefaultCode);
         request.AddOverrideParameter("sourceExternalContentId", input.SourceContentId);
         request.AddOverrideParameter("strategyId", input.StrategyId);
         request.AddOverrideParameter("prepareFor", input.PrepareFor);
@@ -131,6 +134,8 @@ public class ContentActions(InvocationContext invocationContext, IFileManagement
                 TotalGlobalDesiredAdded = metrics.TotalGlobalDesiredAdded,
                 TotalGlobalForbiddenAdded = metrics.TotalGlobalForbiddenAdded,
                 TotalLocalTermsAdded = metrics.TotalLocalTermsAdded,
+                VariantCode = targetVariant.DefaultCode,
+                LakeId = lake.LakeId,
             };
         }
     }

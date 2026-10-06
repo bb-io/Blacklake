@@ -54,7 +54,9 @@ public class PollingList(InvocationContext invocationContext) : BlacklakeInvocab
 
         var response = await Client.ExecuteWithErrorHandling<IEnumerable<ContentDto>>(restRequest);
 
-        var result = response.Select(x => new ContentOutput(x)).ToList();
+        var variants = await Client.GetLakeVariants(lake);
+
+        var result = response.Select(x => new ContentOutput(x, variants.FirstOrDefault(y => y.Id == x.VariantId)?.DefaultCode, lake.LakeId)).ToList();
 
         return new()
         {
