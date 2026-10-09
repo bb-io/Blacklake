@@ -1,6 +1,7 @@
 using Apps.Blacklake.Events;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Polling;
+using Newtonsoft.Json;
 using Tests.Blacklake.Base;
 
 namespace Tests.Blacklake;
@@ -49,7 +50,7 @@ public class PollingTests : TestBase
 
         foreach(var x in response.Result)
         {
-            Console.WriteLine(x.Name);
+            Console.WriteLine(JsonConvert.SerializeObject(response, Formatting.Indented));
         }
 
         Assert.IsNotNull(response);

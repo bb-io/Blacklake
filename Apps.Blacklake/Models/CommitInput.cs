@@ -7,7 +7,7 @@ namespace Apps.Blacklake.Models;
 
 public class CommitInput
 {
-    [Display("File")]
+    [Display("Content")]
     public FileReference File { get; set; }
 
     [Display("Language variant code", Description = "Set or overwrite the variant this content should be stored as. Leave empty to use the file's own metadata.")]

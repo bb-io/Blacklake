@@ -28,7 +28,7 @@ public class ContentOutput
     [Display("Source external ID")]
     public string ContentId { get; set; }
 
-    public ContentOutput(ContentDto dto, string? variantCode, string lakeId)
+    public ContentOutput(MinifiedContentDto dto, string? variantCode, string lakeId)
     {
         Id = dto.Id;
         VariantId = dto.VariantId;
