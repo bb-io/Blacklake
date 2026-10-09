@@ -52,7 +52,7 @@ public class PollingList(InvocationContext invocationContext) : BlacklakeInvocab
             }
         }
 
-        var response = await Client.ExecuteWithErrorHandling<IEnumerable<ContentDto>>(restRequest);
+        var response = await Client.ExecuteWithErrorHandling<IEnumerable<MinifiedContentDto>>(restRequest);
 
         var variants = await Client.GetLakeVariants(lake);
 

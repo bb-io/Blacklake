@@ -1,5 +1,5 @@
 ﻿namespace Apps.Blacklake.Dto;
-public class ContentDto
+public class MinifiedContentDto
 {
     public string Id { get; set; }
     public string VariantId { get; set; }

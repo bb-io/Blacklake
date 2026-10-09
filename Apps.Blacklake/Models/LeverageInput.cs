@@ -7,7 +7,7 @@ using Blackbird.Applications.Sdk.Common.Files;
 namespace Apps.Blacklake.Models;
 public class LeverageInput
 {
-    [Display("File")]
+    [Display("Content")]
     public FileReference File { get; set; }
 
     [Display("Target variant", Description = "The variant code to prepare content for.")]

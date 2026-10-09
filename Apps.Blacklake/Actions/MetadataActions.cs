@@ -56,7 +56,7 @@ public class MetadataActions(InvocationContext invocationContext) : BlacklakeInv
         }
 
         var contentRequest = new RestRequest($"/lakes/{lake.LakeId}/content/external/{input.ExternalContentId}/variants/{variant.Id}", Method.Get);
-        var contentResult = await Client.ExecuteWithErrorHandling<ContentDto>(contentRequest);
+        var contentResult = await Client.ExecuteWithErrorHandling<MinifiedContentDto>(contentRequest);
 
         if (contentResult == null)
         {
