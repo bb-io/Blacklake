@@ -12,4 +12,7 @@ public class ContentPollingFilters
     [Display("System IDs", Description = "The system ID of the content.")]
     [DataSource(typeof(SystemIdDataHandler))]
     public IEnumerable<string>? SystemIds { get; set; }
+
+    [Display("Source external ID", Description = "Relevant when creating a checkpoint to wait for content to be edited in Blacklake.")]
+    public string ContentId { get; set; }
 }
