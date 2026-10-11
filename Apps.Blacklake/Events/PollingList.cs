@@ -58,6 +58,15 @@ public class PollingList(InvocationContext invocationContext) : BlacklakeInvocab
 
         var result = response.Select(x => new ContentOutput(x, variants.FirstOrDefault(y => y.Id == x.VariantId)?.DefaultCode, lake.LakeId)).ToList();
 
+        if (filters.ContentId is not null && !result.Any(x => x.ContentId == filters.ContentId))
+        {
+            return new()
+            {
+                FlyBird = false,
+                Memory = new() { LastPollSince = DateTime.UtcNow }
+            };
+        }
+
         return new()
         {
             FlyBird = result.Count > 0,
