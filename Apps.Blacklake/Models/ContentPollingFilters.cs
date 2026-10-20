@@ -14,5 +14,5 @@ public class ContentPollingFilters
     public IEnumerable<string>? SystemIds { get; set; }
 
     [Display("Source external ID", Description = "Relevant when creating a checkpoint to wait for content to be edited in Blacklake.")]
-    public? string ContentId { get; set; }
+    public string? ContentId { get; set; }
 }
