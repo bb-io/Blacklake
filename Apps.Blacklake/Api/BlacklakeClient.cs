@@ -54,21 +54,28 @@ public class BlacklakeClient : BlackBirdRestClient
 
     protected override Exception ConfigureErrorException(RestResponse response)
     {
+        int status = (int)response.StatusCode;
+        string? responseContent = response.Content;
+        if (string.IsNullOrWhiteSpace(responseContent))
+            return new PluginApplicationException(response.ErrorMessage ?? "Empty error");
+
+        string raw = responseContent.Substring(0, Math.Min(responseContent.Length, 300));
         try
         {
-            var error = JsonConvert.DeserializeObject<Error>(response.Content!)!;
+            var error = JsonConvert.DeserializeObject<Error>(responseContent);
+            if (error is null)
+                return new PluginApplicationException($"Could not deserialize error. Status {status}. Raw: {raw}");
+            
             if (error.Errors?.Count > 0)
                 return new PluginApplicationException(string.Join(' ', error.Errors.SelectMany(x => x.Value)));
 
             var message = string.Join(": ", new[] { error.Title, error.Detail }.Where(x => !string.IsNullOrWhiteSpace(x)));
             if (!string.IsNullOrEmpty(message))
-                return new PluginApplicationException($"Blacklake returned {(int)response.StatusCode} {message}");
+                return new PluginApplicationException($"Blacklake returned {status} {message}");
         }
-        catch (JsonException)
-        {
-        }
+        catch (JsonException) { }
 
-        return new PluginApplicationException(response.ErrorMessage ?? response.Content ?? "Empty error");
+        return new PluginApplicationException($"An unknown error occured. Status {status}. Raw: {raw}");
     }
 
     private static TimeSpan GetRetryDelay(int retryAttempt, RestResponse response)
