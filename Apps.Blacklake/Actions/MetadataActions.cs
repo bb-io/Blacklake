@@ -9,11 +9,93 @@ using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Blackbird.Applications.Sdk.Utils.Extensions.Http;
 using RestSharp;
+using System.Text.Json;
 namespace Apps.Blacklake.Actions;
 
 [ActionList("Metadata")]
 public class MetadataActions(InvocationContext invocationContext) : BlacklakeInvocable(invocationContext)
 {
+    [Action("Get text metadata", Description = "Get a text metadata field's ID, name, and value for a content item.")]
+    public async Task<TextMetadataOutput> GetTextMetadata(
+        [ActionParameter] LakeInput lake,
+        [ActionParameter] ContentInput input,
+        [ActionParameter][Display("Metadata field ID")][DataSource(typeof(TextMetaFieldDataHandler))] string metaFieldId)
+    {
+        var field = await GetMetadata(lake, input, metaFieldId, JsonValueKind.String, "text");
+        return new TextMetadataOutput
+        {
+            FieldId = field?.Id,
+            FieldName = field?.Name,
+            FieldValue = field?.Value.GetString()
+        };
+    }
+
+    [Action("Get number metadata", Description = "Get a number metadata field's ID, name, and value for a content item.")]
+    public async Task<NumberMetadataOutput> GetNumberMetadata(
+        [ActionParameter] LakeInput lake,
+        [ActionParameter] ContentInput input,
+        [ActionParameter][Display("Metadata field ID")][DataSource(typeof(NumberMetaFieldDataHandler))] string metaFieldId)
+    {
+        var field = await GetMetadata(lake, input, metaFieldId, JsonValueKind.Number, "number");
+        return new NumberMetadataOutput
+        {
+            FieldId = field?.Id,
+            FieldName = field?.Name,
+            FieldValue = field?.Value.GetDouble()
+        };
+    }
+
+    [Action("Get boolean metadata", Description = "Get a boolean metadata field's ID, name, and value for a content item.")]
+    public async Task<BooleanMetadataOutput> GetBooleanMetadata(
+        [ActionParameter] LakeInput lake,
+        [ActionParameter] ContentInput input,
+        [ActionParameter][Display("Metadata field ID")][DataSource(typeof(BooleanMetaFieldDataHandler))] string metaFieldId)
+    {
+        var field = await GetMetadata(lake, input, metaFieldId, JsonValueKind.True, "boolean");
+        return new BooleanMetadataOutput
+        {
+            FieldId = field?.Id,
+            FieldName = field?.Name,
+            FieldValue = field?.Value.GetBoolean()
+        };
+    }
+
+    private async Task<MetadataValueDto?> GetMetadata(LakeInput lake, ContentInput input, string metaFieldId,
+        JsonValueKind valueKind, string fieldType)
+    {
+        if (!Guid.TryParse(lake?.LakeId, out _))
+            throw new PluginMisconfigurationException("Please select a lake or enter a valid lake ID.");
+        if (!Guid.TryParse(input?.ContentId, out _))
+            throw new PluginMisconfigurationException("Please enter a valid content ID from this lake, rather than an external content ID.");
+        if (!Guid.TryParse(metaFieldId, out var fieldId))
+            throw new PluginMisconfigurationException("Please select a metadata field or enter a valid metadata field ID.");
+
+        var request = new RestRequest($"/lakes/{lake.LakeId}/content/{input.ContentId}/metadata", Method.Get);
+        var response = await Client.ExecuteWithErrorHandling(request);
+        if (string.IsNullOrWhiteSpace(response.Content))
+            return null;
+
+        List<MetadataValueDto> fields;
+        try
+        {
+            var serializeOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+            fields = JsonSerializer.Deserialize<List<MetadataValueDto>>(response.Content, serializeOptions) ?? [];
+        }
+        catch (JsonException)
+        {
+            throw new PluginApplicationException("The metadata response could not be read. Please try again.");
+        }
+
+        var field = fields.FirstOrDefault(x => Guid.TryParse(x.Id, out var id) && id == fieldId);
+        if (field is null || field.Value.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+            return null;
+
+        if (field.Value.ValueKind != valueKind && !(fieldType == "boolean" && field.Value.ValueKind == JsonValueKind.False))
+            throw new PluginMisconfigurationException($"The selected metadata field does not contain a {fieldType} value. Please select a {fieldType} metadata field.");
+
+        return field;
+    }
+
     [Action("Update text metadata", Description = "Update a text metadata value for a content variant.")]
     public async Task UpdateTextMetadata(
         [ActionParameter] LakeInput lake, 
