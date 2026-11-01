@@ -61,6 +61,9 @@ There are two distinct scenarios in which the **Store Content** Action is used:
 - **Update text metadata** Update a text metadata value for a content variant.
 - **Update number metadata** Update a number metadata value for a content variant.
 - **Update boolean metadata** Update a boolean metadata value for a content variant.
+- **Get text metadata** Get a text metadata field's ID, name, and text value for a content item.
+- **Get number metadata** Get a number metadata field's ID, name, and numeric value for a content item.
+- **Get boolean metadata** Get a boolean metadata field's ID, name, and true/false value for a content item.
 
 > Metadata can be used in leveraging to perform KPI-based content usage.
 
