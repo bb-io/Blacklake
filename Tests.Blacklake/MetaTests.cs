@@ -16,6 +16,7 @@ public class MetaTests : TestBase
     private MetadataActions actions = null!;
     private LakeInput lake = null!;
     private ContentInput content = null!;
+    private string externalId = null!;
 
     [TestInitialize]
     public async Task CreateFixture()
@@ -29,13 +30,14 @@ public class MetaTests : TestBase
 
         var commit = new RestRequest($"/lakes/{lake.LakeId}/commit", Method.Post);
         const string html = """
-            <html lang="en"><head><meta name="blackbird-ucid" content="metadata-test"></head>
+            <html lang="en"><head><meta name="blackbird-ucid" content="metadata/test?name=a&amp;value=b + c"></head>
             <body><p data-blackbird-key="title">Metadata test content</p></body></html>
             """;
         commit.AddFile("file", Encoding.UTF8.GetBytes(html), "metadata-test.html", "text/html");
         commit.AddParameter("variant", "en");
         var result = await client.ExecuteWithErrorHandling<ContentChangeAndRulesDto>(commit);
         content = new ContentInput { ContentId = result.Changes.Single().ContentId };
+        externalId = (await client.ExecuteWithErrorHandling<MinifiedContentDto>(new RestRequest($"/lakes/{lake.LakeId}/content/{content.ContentId}", Method.Get))).ExternalId;
         Console.WriteLine($"Test lake: {lake.LakeId}; content: {content.ContentId}");
     }
 
@@ -48,22 +50,21 @@ public class MetaTests : TestBase
     }
 
     [TestMethod]
-    public async Task Update_number()
+    public async Task UpdateMetadata_ResolvesExternalIdWithSpecialCharacters()
     {
-        var actions = new MetadataActions(InvocationContext);
-        var lakeId = "a3510bb0-e0b8-40ca-a040-218f73a6eb50";
-        var fieldId = "5caecfc7-abbc-4fcd-b502-691e4dc75cd6";
-        var variantCode = "nl";
-        var externalContentId = "17442755172497";
+        StringAssert.Contains(externalId, "metadata/test?name=a");
+        var input = new MetadataInput { VariantCode = "en", ExternalContentId = externalId };
+        var text = await CreateField("text");
+        var number = await CreateField("number");
+        var boolean = await CreateField("boolean");
 
+        await actions.UpdateTextMetadata(lake, text.Id, input, "Updated");
+        await actions.UpdateNumberMetadata(lake, number.Id, input, 3.5);
+        await actions.UpdateBooleanMetadata(lake, boolean.Id, input, true);
 
-        await actions.UpdateNumberMetadata(
-            new LakeInput { LakeId = lakeId },
-            fieldId,
-            new MetadataInput { 
-                VariantCode = variantCode, 
-                ExternalContentId = externalContentId },
-            3);
+        Assert.AreEqual("Updated", (await actions.GetTextMetadata(lake, content, text.Id)).FieldValue);
+        Assert.AreEqual(3.5, (await actions.GetNumberMetadata(lake, content, number.Id)).FieldValue);
+        Assert.AreEqual(true, (await actions.GetBooleanMetadata(lake, content, boolean.Id)).FieldValue);
     }
 
     [DataTestMethod]

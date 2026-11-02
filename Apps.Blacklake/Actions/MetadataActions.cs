@@ -137,7 +137,9 @@ public class MetadataActions(InvocationContext invocationContext) : BlacklakeInv
             throw new PluginMisconfigurationException($"Variant code {input.VariantCode} not found in this lake.");
         }
 
-        var contentRequest = new RestRequest($"/lakes/{lake.LakeId}/content/external/{input.ExternalContentId}/variants/{variant.Id}", Method.Get);
+        var contentRequest = new RestRequest($"/lakes/{lake.LakeId}/content/external", Method.Get);
+        contentRequest.AddQueryParameter("externalId", input.ExternalContentId);
+        contentRequest.AddQueryParameter("variantId", variant.Id);
         var contentResult = await Client.ExecuteWithErrorHandling<MinifiedContentDto>(contentRequest);
 
         if (contentResult == null)
