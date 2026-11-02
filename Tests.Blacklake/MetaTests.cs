@@ -50,6 +50,35 @@ public class MetaTests : TestBase
     }
 
     [TestMethod]
+    public async Task FindContentByExternalId_ResolvesVariantAndSpecialCharacters()
+    {
+        var contentActions = new ContentActions(InvocationContext, new FileManager());
+        var expected = await client.ExecuteWithErrorHandling<MinifiedContentDto>(new RestRequest($"/lakes/{lake.LakeId}/content/{content.ContentId}", Method.Get));
+        var result = await contentActions.FindContentByExternalId(lake, externalId, "en");
+        Assert.AreEqual(expected.Id, result.ContentId);
+        Assert.AreEqual(expected.Name, result.ContentName);
+
+        await Assert.ThrowsExceptionAsync<PluginApplicationException>(() => contentActions.FindContentByExternalId(lake, "missing", "en"));
+        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(() => contentActions.FindContentByExternalId(lake, externalId, "missing-variant"));
+    }
+
+    [TestMethod]
+    public async Task FindContentByExternalId_SelectsRequestedVariant()
+    {
+        var commit = new RestRequest($"/lakes/{lake.LakeId}/commit", Method.Post);
+        var html = "<html lang=\"fr\"><head><meta name=\"blackbird-ucid\" content=\"metadata/test?name=a&amp;value=b + c\"></head><body><p data-blackbird-key=\"title\">Bonjour</p></body></html>";
+        commit.AddFile("file", Encoding.UTF8.GetBytes(html), "metadata-fr.html", "text/html");
+        commit.AddParameter("variant", "fr");
+        await client.ExecuteWithErrorHandling(commit);
+
+        var contentActions = new ContentActions(InvocationContext, new FileManager());
+        var result = await contentActions.FindContentByExternalId(lake, externalId, "en");
+        Assert.AreEqual(content.ContentId, result.ContentId);
+        var french = await contentActions.FindContentByExternalId(lake, externalId, "fr");
+        Assert.AreNotEqual(result.ContentId, french.ContentId);
+    }
+
+    [TestMethod]
     public async Task UpdateMetadata_ResolvesExternalIdWithSpecialCharacters()
     {
         StringAssert.Contains(externalId, "metadata/test?name=a");
