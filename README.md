@@ -31,6 +31,7 @@ Before you can connect you need to make sure that:
 
 ### Content
 
+- **Find content by external ID** Find a content item by its external ID and variant, and output its name and ID.
 - **Prepare Content** Prepare a file for translation by leveraging matching content from a lake and applying relevant variant assets.
     Advanced settings:
     - **Source variant code**: The variant the content in the file is written in. Leave empty to use the language declared in the file.

@@ -1,8 +1,10 @@
 using Apps.Blacklake.Dto;
+using Apps.Blacklake.DataHandlers;
 using Apps.Blacklake.Helpers;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
+using Blackbird.Applications.Sdk.Common.Dynamic;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using Blackbird.Applications.SDK.Extensions.FileManagement.Interfaces;
@@ -16,6 +18,22 @@ namespace Apps.Blacklake.Actions;
 [ActionList("Content")]
 public class ContentActions(InvocationContext invocationContext, IFileManagementClient fileManagementClient) : BlacklakeInvocable(invocationContext)
 {
+    [Action("Find content by external ID", Description = "Find a content item by its external ID and variant.")]
+    public async Task<FindContentOutput> FindContentByExternalId(
+        [ActionParameter] LakeInput lake,
+        [ActionParameter, Display("External ID", Description = "The content ID in the source system.")] string externalId,
+        [ActionParameter, Display("Variant"), DataSource(typeof(VariantDataHandler))] string variant)
+    {
+        var selected = await Client.GetVariantFromCodeOrGuid(lake, variant)
+            ?? throw new PluginMisconfigurationException($"Variant {variant} not found in this lake.");
+        var request = new RestRequest($"/lakes/{lake.LakeId}/content/external", Method.Get);
+        request.AddQueryParameter("externalId", externalId);
+        request.AddQueryParameter("variantId", selected.Id);
+        var content = await Client.ExecuteWithErrorHandling<MinifiedContentDto>(request)
+            ?? throw new PluginApplicationException($"Could not find content with external ID {externalId}.");
+        return new FindContentOutput { ContentId = content.Id, ContentName = content.Name };
+    }
+
     [Action("Prepare Content", Description = "Prepare a file for translation by leveraging matching content from a lake and applying relevant variant assets.")]
     public async Task<LeverageOutput> Leverage([ActionParameter] LakeInput lake, [ActionParameter] LeverageInput input)
     {
