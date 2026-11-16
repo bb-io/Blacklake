@@ -1,6 +1,7 @@
 using System.Net;
 using Apps.Blacklake.Constants;
 using Apps.Blacklake.Dto;
+using Apps.Blacklake.Helpers;
 using Apps.Blacklake.Models;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Blackbird.Applications.Sdk.Common.Exceptions;
@@ -31,7 +32,7 @@ public class BlacklakeClient : BlackBirdRestClient
     ];
 
     private readonly AsyncRetryPolicy<RestResponse> _retryPolicy = Policy
-        .HandleResult<RestResponse>(response => TransientStatusCodes.Contains(response.StatusCode))
+        .HandleResult<RestResponse>(response => TransientStatusCodes.Contains(response.StatusCode) || response.IsConnectionFailure())
         .WaitAndRetryAsync(RetryCount, (retryAttempt, result, _) => GetRetryDelay(retryAttempt, result.Result),
             (_, _, _, _) => Task.CompletedTask);
 
@@ -57,8 +58,12 @@ public class BlacklakeClient : BlackBirdRestClient
         int status = (int)response.StatusCode;
         string? responseContent = response.Content;
         if (string.IsNullOrWhiteSpace(responseContent))
-            return new PluginApplicationException(response.ErrorMessage ?? "Empty error");
-
+        {
+            return new PluginApplicationException(response.ErrorException is { InnerException: not null } ex
+                ? $"{ex.Message} Inner error: {ex.GetBaseException().Message}"
+                : response.ErrorMessage ?? "Empty error");
+        }
+        
         string raw = responseContent.Substring(0, Math.Min(responseContent.Length, 300));
         try
         {
